@@ -44,39 +44,39 @@ class ResPartner extends Model
     // {
     //     return $this->hasMany(ProductWishlist::class, 'partner_id');
     // }
-    // public function orderTrips()
+    public function orderTrips()
+    {
+        return $this->hasMany(OrdersTrip::class, 'driver_id');
+    }
+    // public function tripWizards()
     // {
-    //     return $this->hasMany(OrdersTrip::class, 'driver_id');
+    //     return $this->hasMany(TripWizard::class, 'partner_id', 'id');
     // }
-    // // public function tripWizards()
-    // // {
-    // //     return $this->hasMany(TripWizard::class, 'partner_id', 'id');
-    // // }
 
-    // public function saleOrders()
-    // {
-    //     return $this->hasMany(SaleOrder::class, 'partner_id', 'id');
-    // }
-    // public function saleOrderShippings()
-    // {
-    //     return $this->hasMany(SaleOrder::class, 'partner_shipping_id');
-    // }
-    // public function saleOrderInvoices()
-    // {
-    //     return $this->hasMany(SaleOrder::class, 'partner_invoice_id');
-    // }
-    // public function saleOrderLines()
-    // {
-    //     return $this->hasMany(SaleOrderLine::class, 'order_partner_id');
-    // }
-    // public function partnerInvoice()
-    // {
-    //     return $this->hasMany(SaleOrderLine::class, 'partner_invoice_id');
-    // }
-    // public function partnerShipping()
-    // {
-    // //     return $this->hasMany(SaleOrderLine::class, 'partner_shipping_id');
-    // }
+    public function saleOrders()
+    {
+        return $this->hasMany(SaleOrder::class, 'partner_id', 'id');
+    }
+    public function saleOrderShippings()
+    {
+        return $this->hasMany(SaleOrder::class, 'partner_shipping_id');
+    }
+    public function saleOrderInvoices()
+    {
+        return $this->hasMany(SaleOrder::class, 'partner_invoice_id');
+    }
+    public function saleOrderLines()
+    {
+        return $this->hasMany(SaleOrderLine::class, 'order_partner_id');
+    }
+    public function partnerInvoice()
+    {
+        return $this->hasMany(SaleOrderLine::class, 'partner_invoice_id');
+    }
+    public function partnerShipping()
+    {
+        return $this->hasMany(SaleOrderLine::class, 'partner_shipping_id');
+    }
 
     public function commercialPartner()
     {
@@ -91,10 +91,10 @@ class ResPartner extends Model
     {
         return $this->hasMany(ResPartner::class, 'parent_id', 'id');
     }
-    // public function kitchen()
-    // {
-    //     return $this->belongsTo(DigitileKitchen::class, 'kitchen_id', 'id');
-    // }
+    public function kitchen()
+    {
+        return $this->belongsTo(DigitileKitchen::class, 'kitchen_id', 'id');
+    }
 
     public function company()
     {
@@ -109,15 +109,15 @@ class ResPartner extends Model
         return $this->hasMany(User::class, 'partner_id');
     }
 
-    // public function driverOrder()
-    // {
-    //     return $this->hasMany(DriverOrder::class, 'order_id');
-    // }
+    public function driverOrder()
+    {
+        return $this->hasMany(DriverOrder::class, 'order_id');
+    }
 
-    // public function driverSaleOrders()
-    // {
-    //     return $this->hasMany(SaleOrder::class, 'driver_id');
-    // }
+    public function driverSaleOrders()
+    {
+        return $this->hasMany(SaleOrder::class, 'driver_id');
+    }
 
 
 }

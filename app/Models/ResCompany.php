@@ -90,39 +90,39 @@ class ResCompany extends Model
         return $this->hasMany(ResPartner::class, 'partner_id', 'id');
     }
 
-    // public function resCurrency()
-    // {
-    //     return $this->belongsTo(ResCurrency::class, 'currency_id', 'id');
-    // }
-    // public function saleOrders()
-    // {
-    //     return $this->hasMany(SaleOrder::class, 'company_id');
-    // }
+    public function resCurrency()
+    {
+        return $this->belongsTo(ResCurrency::class, 'currency_id', 'id');
+    }
+    public function saleOrders()
+    {
+        return $this->hasMany(SaleOrder::class, 'company_id');
+    }
 
-    // public function productPricelistItems()
-    // {
-    //     return $this->hasMany(ProductPricelistItem::class, 'company_id', 'id');
-    // }
+    public function productPricelistItems()
+    {
+        return $this->hasMany(ProductPricelistItem::class, 'company_id', 'id');
+    }
 
-    // public function productPricelists()
-    // {
-    //     return $this->hasMany(ProductPricelist::class, 'company_id', 'id');
-    // }
+    public function productPricelists()
+    {
+        return $this->hasMany(ProductPricelist::class, 'company_id', 'id');
+    }
 
     // public function companyUsersRel()
     // {
     //     return $this->hasMany(ResCompanyUsersRel::class, 'company_id', 'id');
     // }
 
-    // public function saleOrderLines()
-    // {
-    //     return $this->hasMany(SaleOrderLine::class);
-    // }
+    public function saleOrderLines()
+    {
+        return $this->hasMany(SaleOrderLine::class);
+    }
 
-    // public function productTemplates()
-    // {
-    //     return $this->hasMany(ProductTemplate::class, 'company_id');
-    // }
+    public function productTemplates()
+    {
+        return $this->hasMany(ProductTemplate::class, 'company_id');
+    }
     // public function users()
     // {
     //     return $this->belongsToMany(User::class,'res_company_users_rels','cid','uid');
@@ -141,76 +141,76 @@ class ResCompany extends Model
     {
         return $this->hasMany(ResCompany::class, 'parent_id', 'id');
     }
-    // public function mainBanner1()
-    // {
-    //     return $this->hasMany(MainBanner1::class, 'company_id');
-    // }
-    // public function mainBanner2()
-    // {
-    //     return $this->hasMany(MainBanner1::class, 'company_id');
-    // }
-    // public function mainBanner3()
-    // {
-    //     return $this->hasMany(MainBanner1::class, 'company_id');
-    // }
-    // public function mainPageSection()
-    // {
-    //     return $this->hasMany(MainBanner1::class, 'company_id');
-    // }
+    public function mainBanner1()
+    {
+        return $this->hasMany(MainBanner1::class, 'company_id');
+    }
+    public function mainBanner2()
+    {
+        return $this->hasMany(MainBanner1::class, 'company_id');
+    }
+    public function mainBanner3()
+    {
+        return $this->hasMany(MainBanner1::class, 'company_id');
+    }
+    public function mainPageSection()
+    {
+        return $this->hasMany(MainBanner1::class, 'company_id');
+    }
 
-    // public function aboutUs()
-    // {
-    //     return $this->hasMany(AboutUs::class, 'company_id');
-    // }
-    // public function aboutUsMissions()
-    // {
-    //     return $this->hasMany(AboutUsMission::class, 'company_id');
-    // }
-    // public function aboutUsSliders()
-    // {
-    //     return $this->hasMany(AboutUsSlider::class, 'company_id');
-    // }
-    // public function abouUsValues()
-    // {
-    //     return $this->hasMany(AboutUsValue::class, 'company_id');
-    // }
-    // public function aboutUsVisions()
-    // {
-    //     return $this->hasMany(AboutUsVision::class, 'company_id');
-    // }
-    // public function customerFeedbacks()
-    // {
-    //     return $this->hasMany(CustomerFeedback::class, 'company_id');
-    // }
-    // public function teams()
-    // {
-    //     return $this->hasMany(Team::class, 'company_id');
-    // }
+    public function aboutUs()
+    {
+        return $this->hasMany(AboutUs::class, 'company_id');
+    }
+    public function aboutUsMissions()
+    {
+        return $this->hasMany(AboutUsMission::class, 'company_id');
+    }
+    public function aboutUsSliders()
+    {
+        return $this->hasMany(AboutUsSlider::class, 'company_id');
+    }
+    public function abouUsValues()
+    {
+        return $this->hasMany(AboutUsValue::class, 'company_id');
+    }
+    public function aboutUsVisions()
+    {
+        return $this->hasMany(AboutUsVision::class, 'company_id');
+    }
+    public function customerFeedbacks()
+    {
+        return $this->hasMany(CustomerFeedback::class, 'company_id');
+    }
+    public function teams()
+    {
+        return $this->hasMany(Team::class, 'company_id');
+    }
 
-    // public function calendars()
-    // {
-    //     return $this->hasMany(ResourceCalendar::class, 'company_id');
-    // }
+    public function calendars()
+    {
+        return $this->hasMany(ResourceCalendar::class, 'company_id');
+    }
 
-    // public function mailaingContacts()
-    // {
-    //     return $this->hasMany(MailingContact::class, 'company_id');
-    // }
-    // public function contactUs()
-    // {
-    //     return $this->hasMany(ContactUs::class, 'company_id');
-    // }
-    // public function hrJobs()
-    // {
-    //     return $this->hasMany(HrJob::class, 'company_id');
-    // }
+    public function mailaingContacts()
+    {
+        return $this->hasMany(MailingContact::class, 'company_id');
+    }
+    public function contactUs()
+    {
+        return $this->hasMany(ContactUs::class, 'company_id');
+    }
+    public function hrJobs()
+    {
+        return $this->hasMany(HrJob::class, 'company_id');
+    }
 
-    // public function careerInfo()
-    // {
-    //     return $this->hasMany(CareerInformation::class);
-    // }
-    // public function faq()
-    // {
-    //     return $this->hasMany(WebsiteFaq::class);
-    // }
+    public function careerInfo()
+    {
+        return $this->hasMany(CareerInformation::class);
+    }
+    public function faq()
+    {
+        return $this->hasMany(WebsiteFaq::class);
+    }
 }

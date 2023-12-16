@@ -38,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
             } else {
                 return $builder->items([
                     NavigationItem::make('Dashboard')
-                        ->label('Scanlira Dashboard')
+                        ->label('Digitile Dashboard')
                         ->icon('heroicon-o-home')
                         ->activeIcon('heroicon-s-home')
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))

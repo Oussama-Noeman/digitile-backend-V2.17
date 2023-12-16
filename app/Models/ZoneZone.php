@@ -32,9 +32,9 @@ class ZoneZone extends Model
     public function lattitude_longitudes(){
         return $this->hasMany(LatitudeLongitude::class,'zone_id');
     }
-    // public function saleOrder(){
-    //     return $this->hasMany(SaleOrder::class,'zone_id');
-    // }
+    public function saleOrder(){
+        return $this->hasMany(SaleOrder::class,'zone_id');
+    }
 
 
     
