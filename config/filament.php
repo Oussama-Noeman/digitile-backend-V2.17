@@ -183,10 +183,10 @@ return [
     |
     */
 
-    'database_notifications' => [
-        'enabled' => true,
-        'polling_interval' => '30s',
-    ],
+    // 'database_notifications' => [
+    //     'enabled' => true,
+    //     'polling_interval' => '30s',
+    // ],
 
     /*
     |--------------------------------------------------------------------------
