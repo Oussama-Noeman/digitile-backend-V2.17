@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResLangResource\Pages;
 use App\Filament\Resources\ResLangResource\RelationManagers;
-use App\Models\ResLang;
+use App\Models\Tenant\ResLang;
 use Filament\Forms;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;

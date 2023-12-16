@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResCurrencyResource\Pages;
 use App\Filament\Resources\ResCurrencyResource\RelationManagers;
-use App\Models\ResCurrency;
+use App\Models\Tenant\ResCurrency;
 use Filament\Forms;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\Textarea;
