@@ -49,7 +49,7 @@ class AboutUsMissionResource extends Resource
                 Tables\Columns\TextColumn::make('description')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company.name')
-                    ->numeric()
+                    // ->numeric()
                     ->sortable(),
                 //                Tables\Columns\ImageColumn::make('about_us_slider_image_attachment'),
                 Tables\Columns\TextColumn::make('created_at')

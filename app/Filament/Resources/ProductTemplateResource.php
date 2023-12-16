@@ -695,14 +695,13 @@ class ProductTemplateResource extends Resource
                 Tables\Actions\Action::make('configure')
                     ->label('Configure')
                     ->url(fn (ProductTemplate $record): string => route('filament.admin.resources.product-template-attribute-values.index', ['record' => $record])),
-            ])
-           ;
+            ]);
     }
 
     public static function getRelations(): array
     {
         return [
-            // RelationManagers\AttributesRelationManager::class,
+            RelationManagers\AttributesRelationManager::class,
         ];
     }
 
