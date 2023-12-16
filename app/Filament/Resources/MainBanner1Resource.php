@@ -47,16 +47,16 @@ class MainBanner1Resource extends Resource
                     ])->columnSpan(2)->columns(1),
                 Section::make('')
                     ->schema([
-                        // FileUpload::make('image')
-                        //     ->disk('public')->directory('images/MainBanner1')
-                        //     ->required()
-                        //     ->image()
-                        //     ->imageEditor()
-                        //     ->imageEditorAspectRatios([
-                        //         '16:9',
-                        //         '4:3',
-                        //         '1:1',
-                        //     ])
+                        FileUpload::make('image')
+                            ->disk('public')->directory('images/MainBanner1')
+                            ->required()
+                            ->image()
+                        // ->imageEditor()
+                        // ->imageEditorAspectRatios([
+                        //     '16:9',
+                        //     '4:3',
+                        //     '1:1',
+                        // ])
                     ])->columnSpan(1),
             ])->columns(3);
     }
