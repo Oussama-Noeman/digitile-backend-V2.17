@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
+use function PHPUnit\Framework\isEmpty;
+
 class ResCompanyResource extends Resource
 {
     protected static ?string $model = ResCompany::class;
@@ -45,11 +48,11 @@ class ResCompanyResource extends Resource
                 Section::make('')
                     ->schema([
                         TextInput::make('name')->translateLabel()->required(),
-                        
+
                         FileUpload::make('image')
                             ->disk('public')->directory('images/Company')
                             ->image()
-                           ->translateLabel()->required(),
+                            ->translateLabel()->required(),
                     ])->columns(2),
 
                 Tabs::make('Heading')
@@ -58,7 +61,13 @@ class ResCompanyResource extends Resource
                             ->schema([
                                 Select::make('partner_id')->relationship('resPartner', 'name')
                                     ->label('Contact')
-                                    ->options(ResPartner::all()->pluck('name', 'id'))
+                                    ->options(function () {
+                                        $partners =  ResPartner::all()->pluck('name', 'id');
+                                        if (!isEmpty($partners)) {
+                                            return $partners;
+                                        }
+                                        return;
+                                    })
                                     ->translateLabel()->required(),
                                 TextInput::make('email')->translateLabel()->nullable(),
                                 TextInput::make('phone')->translateLabel()->nullable(),
@@ -207,12 +216,12 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('category_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    // ->imageEditor()
-                                    // ->imageEditorAspectRatios([
-                                    //     '16:9',
-                                    //     '4:3',
-                                    //     '1:1',
-                                    // ]),
+                                // ->imageEditor()
+                                // ->imageEditorAspectRatios([
+                                //     '16:9',
+                                //     '4:3',
+                                //     '1:1',
+                                // ]),
                             ]),
                         Tabs\Tab::make('Cart')
                             ->schema([
@@ -221,12 +230,12 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('cart_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    // ->imageEditor()
-                                    // ->imageEditorAspectRatios([
-                                    //     '16:9',
-                                    //     '4:3',
-                                    //     '1:1',
-                                    // ]),
+                                // ->imageEditor()
+                                // ->imageEditorAspectRatios([
+                                //     '16:9',
+                                //     '4:3',
+                                //     '1:1',
+                                // ]),
                             ]),
                         Tabs\Tab::make('Checkout')
                             ->schema([
@@ -235,7 +244,7 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('checkout_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                   
+
                             ]),
                         Tabs\Tab::make('Deal')
                             ->schema([
@@ -245,24 +254,21 @@ class ResCompanyResource extends Resource
                                     ->translateLabel()->nullable(),
                                 FileUpload::make('deal_banner_image_attachment')
                                     ->disk('public')->directory('images/Company')
-                                    ->image()
-                                    ,
+                                    ->image(),
                                 FileUpload::make('deal_background_image_attachment')
                                     ->disk('public')->directory('images/Company')
-                                    ->image()
-                                   ,
+                                    ->image(),
                             ]),
                         Tabs\Tab::make('Sign in/Up Banner')
                             ->schema([
                                 FileUpload::make('sign_banner_attachment')
                                     ->disk('public')->directory('images/Company')
-                                    ->image()
-                                   ,
+                                    ->image(),
                             ]),
-                            Tabs\Tab::make('Delivery/Pickup')
+                        Tabs\Tab::make('Delivery/Pickup')
                             ->schema([
-                               Toggle::make('has_pickup'),
-                               Toggle::make('has_delivery'),
+                                Toggle::make('has_pickup'),
+                                Toggle::make('has_delivery'),
 
                             ]),
                     ]),
@@ -273,7 +279,7 @@ class ResCompanyResource extends Resource
                 FileUpload::make('career_banner')
                     ->disk('public')->directory('images/career_banner')
                     ->image()
-                   ->translateLabel(),
+                    ->translateLabel(),
             ])->columns(1);
     }
 

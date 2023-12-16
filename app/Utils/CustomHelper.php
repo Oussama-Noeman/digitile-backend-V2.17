@@ -3,21 +3,21 @@
 namespace App\Utils;
 
 use App\Models\DriverChat;
-use App\Models\LatitudeLongitude;
-use App\Models\MainBanner1;
-use App\Models\ProductAttribute;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductCategory;
-use App\Models\ProductPricelist;
-use App\Models\ProductProduct;
-use App\Models\ProductTemplate;
-use App\Models\ProductTemplateAttributeLine;
-use App\Models\ProductTemplateAttributeValue;
+use App\Models\Tenant\LatitudeLongitude;
+use App\Models\Tenant\MainBanner1;
+use App\Models\Tenant\ProductAttribute;
+use App\Models\Tenant\ProductAttributeValue;
+use App\Models\Tenant\ProductCategory;
+use App\Models\Tenant\ProductPricelist;
+use App\Models\Tenant\ProductProduct;
+use App\Models\Tenant\ProductTemplate;
+use App\Models\Tenant\ProductTemplateAttributeLine;
+use App\Models\Tenant\ProductTemplateAttributeValue;
 use App\Models\ProductVariantCombination;
-use App\Models\ResCompany;
+use App\Models\Tenant\ResCompany;
 use App\Models\ResPartner;
-use App\Models\SaleOrder;
-use App\Models\ZoneZone;
+use App\Models\Tenant\SaleOrder;
+use App\Models\Tenant\ZoneZone;
 use Exception;
 use Illuminate\Http\Request;
 
@@ -137,7 +137,7 @@ class CustomHelper
 
         return $productRemovableIngredientList;
     }
-    public function getProductProductSdDetails($product_product, $name_add = null, $Price_add = null, $default = null, $lang )
+    public function getProductProductSdDetails($product_product, $name_add = null, $Price_add = null, $default = null, $lang)
     {
         $variant_name = $this->getProductVariantName($product_product);
         if ($variant_name !== '') {
@@ -170,11 +170,11 @@ class CustomHelper
         return $values_prod;
     }
 
-    public function getProductFullProductSdDetails($product_product, $default, $lang )
+    public function getProductFullProductSdDetails($product_product, $default, $lang)
     {
         $product_variant_list = [];
 
-        $values_prod = $this->getProductProductSdDetails($product_product, '', 0, $default, $lang );
+        $values_prod = $this->getProductProductSdDetails($product_product, '', 0, $default, $lang);
         $product_variant_list[] = $values_prod;
 
         return $product_variant_list;
@@ -295,7 +295,7 @@ class CustomHelper
         return $productVariantList;
     }
 
-    public function getProductFullProductDetails($productProduct, $lang = 'en',$AddProductInfo=null)
+    public function getProductFullProductDetails($productProduct, $lang = 'en', $AddProductInfo = null)
     {
         $productVariantList = [];
 
@@ -305,7 +305,7 @@ class CustomHelper
 
         return $productVariantList;
     }
-    public function getProductProductDetails(ProductProduct $productProduct, $nameAdd = null, $priceAdd = null, $lang = 'en', $AddProductInfo=null)
+    public function getProductProductDetails(ProductProduct $productProduct, $nameAdd = null, $priceAdd = null, $lang = 'en', $AddProductInfo = null)
     {
         $productVariantName = '';
         $variantAttribute = [];
@@ -368,38 +368,37 @@ class CustomHelper
 
 
 
-            if ($AddProductInfo ){
+        if ($AddProductInfo) {
 
 
-                $valuesProd = [
-                    'product_product_id' => $productProduct->id,
-                    "product_templ_id" => $productProduct->product_tmpl_id,
-                    'product_variant_name' => Lang::get_name($productProduct->name, $lang) . $variantName,
-                    'default' => $default,
-                    'storable' => $storable,
-                    'product_sale_price' => $priceProduct,
-                    'final_price' => $this->getProductProductPrice($productProduct, $priceProduct),
-                    'final_price_Without_TVA' => $this->getProductProductPrice($productProduct, $price),
-                    'product_image' => '/storage/' . $productProduct->image,
-                    'variant_attribute_list' => $variantAttribute,
-                    'product_product_info'=> $this->getProductProductInformationById($productProduct,   $lang),
-                ];
-            }
-            else{
+            $valuesProd = [
+                'product_product_id' => $productProduct->id,
+                "product_templ_id" => $productProduct->product_tmpl_id,
+                'product_variant_name' => Lang::get_name($productProduct->name, $lang) . $variantName,
+                'default' => $default,
+                'storable' => $storable,
+                'product_sale_price' => $priceProduct,
+                'final_price' => $this->getProductProductPrice($productProduct, $priceProduct),
+                'final_price_Without_TVA' => $this->getProductProductPrice($productProduct, $price),
+                'product_image' => '/storage/' . $productProduct->image,
+                'variant_attribute_list' => $variantAttribute,
+                'product_product_info' => $this->getProductProductInformationById($productProduct,   $lang),
+            ];
+        } else {
 
-                $valuesProd = [
-                    'product_product_id' => $productProduct->id,
-                    "product_templ_id" => $productProduct->product_tmpl_id,
-                    'product_variant_name' => Lang::get_name($productProduct->name, $lang) . $variantName,
-                    'default' => $default,
-                    'storable' => $storable,
-                    'product_sale_price' => $priceProduct,
-                    'final_price' => $this->getProductProductPrice($productProduct, $priceProduct),
-                    'final_price_Without_TVA' => $this->getProductProductPrice($productProduct, $price),
-                    'product_image' => '/storage/' . $productProduct->image,
-                    'variant_attribute_list' => $variantAttribute,
-                ];
-            }
+            $valuesProd = [
+                'product_product_id' => $productProduct->id,
+                "product_templ_id" => $productProduct->product_tmpl_id,
+                'product_variant_name' => Lang::get_name($productProduct->name, $lang) . $variantName,
+                'default' => $default,
+                'storable' => $storable,
+                'product_sale_price' => $priceProduct,
+                'final_price' => $this->getProductProductPrice($productProduct, $priceProduct),
+                'final_price_Without_TVA' => $this->getProductProductPrice($productProduct, $price),
+                'product_image' => '/storage/' . $productProduct->image,
+                'variant_attribute_list' => $variantAttribute,
+            ];
+        }
 
         // $valuesProd = [
         //     'product_product_id' => $productProduct->id,
@@ -741,11 +740,10 @@ class CustomHelper
 
     public function getProductProductPrice(ProductProduct $productProduct, $priceNew = null)
     {   // need data base modification for lst_price
-//        $price = $productProduct->lst_price;
-        if ($priceNew){
+        //        $price = $productProduct->lst_price;
+        if ($priceNew) {
             $price = $priceNew;
-        }
-        else {
+        } else {
             $price = $productProduct->lst_price;
         }
         return $price;

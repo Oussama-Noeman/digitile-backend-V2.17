@@ -28,11 +28,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductCategoryResource extends Resource
 {
     protected static ?string $model = ProductCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-inbox-stack';
     public static function getNavigationGroup(): ?string
     {
         return __('Product Management');
@@ -56,20 +57,18 @@ class ProductCategoryResource extends Resource
                     ->schema([
                         TextInput::make('en')->translateLabel(),
                         TextInput::make('ar')->translateLabel(),
-                    ])->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+                    ])
                     ->required(),
 
                 FileUpload::make('image')
                     ->disk('public')->directory('images/ProductCategory')
                     ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ])
+                    // ->imageEditor()
+                    // ->imageEditorAspectRatios([
+                    //     '16:9',
+                    //     '4:3',
+                    //     '1:1',
+                    // ])
                     ->required()
                     ->translateLabel(),
 
@@ -98,8 +97,7 @@ class ProductCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-        ;
+            ]);
     }
 
     public static function getRelations(): array

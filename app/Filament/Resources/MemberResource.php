@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class MemberResource extends Resource
 {
     protected static ?string $model = Member::class;
@@ -25,7 +26,7 @@ class MemberResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user';
     public static function canViewAny(): bool
     {
-        return false;
+        return true; //b el project el 2adim kenet false
     }
 
     public static function form(Form $form): Form
@@ -33,25 +34,25 @@ class MemberResource extends Resource
         return $form
             ->schema([
                 TextInput::make('fname')
-                ->Label('First Name')
-                ->translateLabel()
-                ->required(),
+                    ->Label('First Name')
+                    ->translateLabel()
+                    ->required(),
                 TextInput::make('lname')
-                ->Label('Last Name')
-                ->translateLabel()
-                ->required(),
+                    ->Label('Last Name')
+                    ->translateLabel()
+                    ->required(),
                 FileUpload::make('image')
-                ->Label('Image')
-                ->translateLabel()
-                ->disk('public')->directory('images/MainPageSection')
-                ->image()
-                ->imageEditor()
-                ->imageEditorAspectRatios([
-                    '16:9',
-                    '4:3',
-                    '1:1',
-                ])
-                ->required(),
+                    ->Label('Image')
+                    ->translateLabel()
+                    ->disk('public')->directory('images/MainPageSection')
+                    ->image()
+                    // ->imageEditor()
+                    // ->imageEditorAspectRatios([
+                    //     '16:9',
+                    //     '4:3',
+                    //     '1:1',
+                    // ])
+                    ->required(),
 
             ]);
     }
@@ -62,26 +63,25 @@ class MemberResource extends Resource
             ->columns([
                 ImageColumn::make('member_image_attachment'),
                 TextColumn::make('fname')->Label('First Name')
-                ->translateLabel(),
+                    ->translateLabel(),
                 TextColumn::make('lname')->Label('Last Name')
-                ->translateLabel(),
+                    ->translateLabel(),
             ])
             ->filters([
                 //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-            ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -89,14 +89,14 @@ class MemberResource extends Resource
             'create' => Pages\CreateMember::route('/create'),
             'edit' => Pages\EditMember::route('/{record}/edit'),
         ];
-    }    
-   
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Members');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Members');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Members');
+    }
 }

@@ -17,12 +17,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductTagResource extends Resource
 {
     protected static ?string $model = ProductTag::class;
     public static function canViewAny(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $navigationIcon = 'heroicon-o-tag';
 
@@ -31,16 +32,14 @@ class ProductTagResource extends Resource
         return $form
             ->schema([
                 KeyValue::make('name')
-                ->schema([
-                    TextInput::make('en'),
-                    TextInput::make('ar'),
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('ar'),
 
-                ])->addable(false)
-                ->deletable(false)
-                ->editableKeys(false)
-                ->translateLabel()
-                ->required(),
-                
+                    ])
+                    ->translateLabel()
+                    ->required(),
+
             ]);
     }
 
@@ -48,26 +47,23 @@ class ProductTagResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name.en')->searchable()->sortable()  ->translateLabel(),
-                ColorColumn::make('color') ->translateLabel(),
+                TextColumn::make('name.en')->searchable()->sortable()->translateLabel(),
+                ColorColumn::make('color')->translateLabel(),
             ])
-            
-            ->filters([
-            
-            ])
+
+            ->filters([])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-          ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -75,14 +71,14 @@ class ProductTagResource extends Resource
             'create' => Pages\CreateProductTag::route('/create'),
             'edit' => Pages\EditProductTag::route('/{record}/edit'),
         ];
-    }    
-  
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Product Tag');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Product Tag');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Product Tag');
+    }
 }

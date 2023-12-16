@@ -22,10 +22,30 @@ use App\Filament\Resources\HrApplicationResource;
 use App\Filament\Resources\HrJobResource;
 use App\Filament\Resources\MailingContactResource;
 use App\Filament\Resources\MainBanner1Resource;
+use App\Filament\Resources\MainBanner2Resource;
+use App\Filament\Resources\MainBanner3Resource;
+use App\Filament\Resources\MainPageSectionResource;
+use App\Filament\Resources\MemberResource;
+use App\Filament\Resources\OrderTripResource;
+use App\Filament\Resources\ProductAttributeResource;
+use App\Filament\Resources\ProductAttributeValueResource;
+use App\Filament\Resources\ProductCategoryResource;
+use App\Filament\Resources\ProductPricelistItemResource;
+use App\Filament\Resources\ProductPricelistResource;
+use App\Filament\Resources\ProductProductResource;
+use App\Filament\Resources\ProductTagResource;
+use App\Filament\Resources\ProductTemplateResource;
+use App\Filament\Resources\ProductWishlistResource;
 use App\Filament\Resources\ResCompanyResource;
+use App\Filament\Resources\ResCurrencyResource;
+use App\Filament\Resources\ResGroupResource;
+use App\Filament\Resources\ResLangResource;
+use App\Filament\Resources\ResPartnerResource;
+use App\Filament\Resources\SaleOrderResource;
 use App\Filament\Resources\SubscriberResource;
 use App\Filament\Resources\ZoneZoneResource;
 use App\Models\Tenant\MainBanner1;
+use App\Models\Tenant\MainBanner3;
 use App\Models\Tenant\ResCompany;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
@@ -46,17 +66,16 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {    
+    {
         Filament::navigation(function (NavigationBuilder $builder): NavigationBuilder {
             if (tenancy()->initialized) {
-             
+
                 return $builder->items([
                     NavigationItem::make('Dashboard')
                         ->icon('heroicon-o-home')
                         ->activeIcon('heroicon-s-home')
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))
                         ->url(route('filament.pages.dashboard')),
-                    ...MainBanner1Resource::getNavigationItems(),
                     ...AboutUsMissionResource::getNavigationItems(),
                     ...AboutUsResource::getNavigationItems(),
                     ...AboutUsSliderResource::getNavigationItems(),
@@ -76,10 +95,29 @@ class AppServiceProvider extends ServiceProvider
                     ...HrApplicationResource::getNavigationItems(),
                     ...HrJobResource::getNavigationItems(),
                     ...MailingContactResource::getNavigationItems(),
+                    ...MainBanner1Resource::getNavigationItems(),
+                    ...MainBanner2Resource::getNavigationItems(),
+                    ...MainBanner3Resource::getNavigationItems(),
+                    ...MainPageSectionResource::getNavigationItems(),
+                    ...MemberResource::getNavigationItems(),
+                    ...OrderTripResource::getNavigationItems(),
+                    ...ProductAttributeResource::getNavigationItems(),
+                    ...ProductAttributeValueResource::getNavigationItems(),
+                    ...ProductCategoryResource::getNavigationItems(),
+                    ...ProductPricelistItemResource::getNavigationItems(),
+                    ...ProductPricelistResource::getNavigationItems(),
+                    ...ProductProductResource::getNavigationItems(),
+                    ...ProductTagResource::getNavigationItems(),
+                    ...ProductTemplateResource::getNavigationItems(),
+                    ...ProductWishlistResource::getNavigationItems(),
+                    ...ResCurrencyResource::getNavigationItems(),
+                    ...ResGroupResource::getNavigationItems(),
+                    ...ResLangResource::getNavigationItems(),
+                    ...ResPartnerResource::getNavigationItems(),
+                    ...SaleOrderResource::getNavigationItems(),
                     ...ZoneZoneResource::getNavigationItems(),
                     ...ResCompanyResource::getNavigationItems(),
                 ]);
-
             } else {
                 return $builder->items([
                     NavigationItem::make('Dashboard')
@@ -95,5 +133,4 @@ class AppServiceProvider extends ServiceProvider
             }
         });
     }
-    
 }

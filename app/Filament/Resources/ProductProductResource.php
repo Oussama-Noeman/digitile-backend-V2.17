@@ -28,11 +28,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductProductResource extends Resource
 {
     protected static ?string $model = ProductProduct::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    // protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
     public static function getNavigationGroup(): ?string
     {
         return __('Product Management');
@@ -51,22 +52,20 @@ class ProductProductResource extends Resource
                                     ->rows(5),
                             ])
                             ->valueLabel('Name')
-                            ->editableKeys(false)
                             ->keyLabel('Language')
-                            ->deletable(false)
-                            ->addable(false)
+
                             ->columnSpan(1)
                             ->required(),
                         FileUpload::make('image')
                             ->translateLabel()
                             ->disk('public')->directory('images/ProductProduct')
                             ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ])
+                            // ->imageEditor()
+                            // ->imageEditorAspectRatios([
+                            //     '16:9',
+                            //     '4:3',
+                            //     '1:1',
+                            // ])
                             ->required()
                     ])->columns(2),
                 Section::make('')
@@ -255,8 +254,7 @@ class ProductProductResource extends Resource
             ])
             ->actions([
                 ViewAction::make(),
-            ])
-            ;
+            ]);
     }
 
     public static function getRelations(): array
