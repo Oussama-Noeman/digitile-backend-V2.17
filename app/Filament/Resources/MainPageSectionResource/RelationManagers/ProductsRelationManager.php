@@ -1,56 +1,50 @@
 <?php
 
-namespace App\Filament\Resources\ProductCategoryResource\RelationManagers;
+namespace App\Filament\Resources\MainPageSectionResource\RelationManagers;
 
 use App\Models\ProductProduct;
+use App\Models\ProductTemplate;
 use Filament\Forms;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Actions\AssociateAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
-class ProductCategoryRelatedRelationManager extends RelationManager
-{
-    protected static string $relationship = 'productCategoryRelated';
+class ProductsRelationManager extends RelationManager {
+    protected static string $relationship = 'products';
 
-    public static function form(Form $form): Form
-    {
+    public static function form(Form $form): Form {
         return $form
             ->schema([
-                
+
             ]);
     }
 
-    public static function table(Table $table): Table
-    {
+    public static function table(Table $table): Table {
         return $table
-            // ->recordTitleAttribute('name')
-            // ->recordTitle(fn (ProductProduct $record): string => "{$record->name['en']}")
+            //  ->recordTitleAttribute('name')
+            // ->recordTitle(fn(ProductTemplate $record): string => "{$record->name['en']}")
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                ->badge()
-                ->separator(',')
-                ,
-                Tables\Columns\ToggleColumn::make('default')
-                ->disabled(),
+                Tables\Columns\TextColumn::make('name'),
             ])
             ->filters([
                 //
             ])
             ->headerActions([
-                Tables\Actions\AttachAction::make('related_id')
-                ->preloadRecordSelect()
-                ->recordSelectSearchColumns(['name->en'])
-                ,
+                Tables\Actions\AttachAction::make()
+                    ->preloadRecordSelect() 
+                    ->recordSelectSearchColumns(['name->en'])
+                    
             ])
             ->actions([
                 Tables\Actions\DetachAction::make()
                 // Tables\Actions\EditAction::make(),
+                // Tables\Actions\DeleteAction::make(),
             ]);
             // ->bulkActions([
             //     Tables\Actions\BulkActionGroup::make([
-            //         // ...
             //         Tables\Actions\DetachBulkAction::make(),
             //     ]),
             //     // Tables\Actions\BulkActionGroup::make([
@@ -58,7 +52,7 @@ class ProductCategoryRelatedRelationManager extends RelationManager
             //     // ]),
             // ])
             // ->emptyStateActions([
-            //     Tables\Actions\AttachAction::make('dessert_id') ,
+            //     Tables\Actions\AttachAction::make('product_id'),
 
             //     // Tables\Actions\CreateAction::make(),
             // ]);
