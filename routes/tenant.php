@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Http\Controllers\MainBanner1;
 use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use Stancl\Tenancy\Middleware\InitializeTenancyByDomain;
@@ -20,7 +21,7 @@ use Stancl\Tenancy\Middleware\PreventAccessFromCentralDomains;
 */
 
 Route::middleware([
-    'web',
+    'api',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
@@ -29,4 +30,5 @@ Route::middleware([
         // dd(User::all());
         return 'This is your multi-tenant application. The id of the current tenant is ' . tenant('id');
     });
+    Route::post('main-banners', [MainBanner1::class, 'getMainBanners']);
 });
