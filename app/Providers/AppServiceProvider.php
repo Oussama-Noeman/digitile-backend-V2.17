@@ -3,6 +3,16 @@
 namespace App\Providers;
 
 use App\Filament\Resources\AboutUsMissionResource;
+use App\Filament\Resources\AboutUsResource;
+use App\Filament\Resources\AboutUsSliderResource;
+use App\Filament\Resources\AboutUsValueResource;
+use App\Filament\Resources\AboutUsVisionResource;
+use App\Filament\Resources\CalendarResource;
+use App\Filament\Resources\CareerInformationResource;
+use App\Filament\Resources\ContactUsResource;
+use App\Filament\Resources\CouponResource;
+use App\Filament\Resources\CustomerFeedbackResource;
+use App\Filament\Resources\DigitileKitchenResource;
 use App\Filament\Resources\MainBanner1Resource;
 use App\Filament\Resources\SubscriberResource;
 
@@ -37,6 +47,16 @@ class AppServiceProvider extends ServiceProvider
                         ->url(route('filament.pages.dashboard')),
                     ...MainBanner1Resource::getNavigationItems(),
                     ...AboutUsMissionResource::getNavigationItems(),
+                    ...AboutUsResource::getNavigationItems(),
+                    ...AboutUsSliderResource::getNavigationItems(),
+                    ...AboutUsValueResource::getNavigationItems(),
+                    ...AboutUsVisionResource::getNavigationItems(),
+                    ...CalendarResource::getNavigationItems(),
+                    ...CareerInformationResource::getNavigationItems(),
+                    ...ContactUsResource::getNavigationItems(),
+                    ...CouponResource::getNavigationItems(),
+                    ...CustomerFeedbackResource::getNavigationItems(),
+                    ...DigitileKitchenResource::getNavigationItems(),
 
                 ]);
             } else {
