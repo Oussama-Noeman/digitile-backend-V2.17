@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Filament\Resources\AboutUsMissionResource;
 use App\Filament\Resources\MainBanner1Resource;
 use App\Filament\Resources\SubscriberResource;
-use App\Filament\Resources\ZoneZoneResource;
+
 use App\Models\Tenant\MainBanner1;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
@@ -48,7 +48,7 @@ class AppServiceProvider extends ServiceProvider
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))
                         ->url(route('filament.pages.dashboard')),
                     ...SubscriberResource::getNavigationItems(),
-                    ...ZoneZoneResource::getNavigationItems(),
+                   
                     // ...UserResource::getNavigationItems()
                 ]);
             }

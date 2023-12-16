@@ -2,27 +2,27 @@
 
 namespace App\Filament\Resources\ProductPricelistResource\RelationManagers;
 
-use App\Models\ProductCategory;
+use App\Models\Tenant\ProductCategory;
 use App\Models\ProductPricelist;
-use App\Models\ProductTemplate;
-use App\Models\ResCompany;
+use App\Models\Tenant\ProductTemplate;
+use App\Models\Tenant\ResCompany;
 use Filament\Forms;
 use Filament\Forms\Components\Radio;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
-use Filament\Forms\Form;
+
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
-use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Resources\Form;
+use Filament\Resources\Table;
 class ProductPricelistItemsRelationManager extends RelationManager
 {
     protected static string $relationship = 'productPricelistItems';
 
-    public function form(Form $form): Form
+    public static function form(Form $form): Form
     {
         return $form
             ->schema([
@@ -73,10 +73,10 @@ class ProductPricelistItemsRelationManager extends RelationManager
             ]);
     }
 
-    public function table(Table $table): Table
+    public static function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('pricelist_id')
+            
             ->columns([
                 Tables\Columns\TextColumn::make('pricelist_id'),
             ])
@@ -90,13 +90,6 @@ class ProductPricelistItemsRelationManager extends RelationManager
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ])
-            ->emptyStateActions([
-                Tables\Actions\CreateAction::make(),
-            ]);
+           ;
     }
 }
