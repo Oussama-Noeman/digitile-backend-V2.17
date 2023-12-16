@@ -7,9 +7,8 @@ use App\Filament\Resources\ZoneZoneResource\RelationManagers;
 use Filament\Resources\Form;
 use App\Forms\Components\DrawZone;
 use App\Forms\Components\ShowZone;
-use App\Models\ResCompany;
-use App\Models\ResPartner;
-use App\Models\ZoneZone;
+use App\Models\Tenant\ResCompany;
+use App\Models\Tenant\ZoneZone;
 use Filament\Forms;
 use Filament\Forms\Components\Actions\Action;
 use Filament\Forms\Components\ColorPicker;
@@ -112,7 +111,7 @@ class ZoneZoneResource extends Resource
 
                 Tables\Actions\Action::make('show')
                     ->label('show')
-                    ->url(fn (ZoneZone $record): string => route('filament.resources.zone-zones.show', ['record' => $record])),
+                    ->url(fn (ZoneZone $record): string => route('filament.resources.tenant/zone-zones.show', ['record' => $record])),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])

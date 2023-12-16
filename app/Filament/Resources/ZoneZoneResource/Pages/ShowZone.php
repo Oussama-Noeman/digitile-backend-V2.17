@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ZoneZoneResource\Pages;
 
 use App\Filament\Resources\ZoneZoneResource;
-use App\Models\ZoneZone;
+use App\Models\Tenant\ZoneZone;
 use Filament\Resources\Pages\Page;
 
 class ShowZone extends Page

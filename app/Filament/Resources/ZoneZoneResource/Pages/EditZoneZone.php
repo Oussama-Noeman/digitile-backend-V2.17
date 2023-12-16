@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\ZoneZoneResource\Pages;
 
 use App\Filament\Resources\ZoneZoneResource;
-use App\Models\LatitudeLongitude;
+use App\Models\Tenant\LatitudeLongitude;
 use Filament\Actions;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;

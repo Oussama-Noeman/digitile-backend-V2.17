@@ -4,9 +4,9 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResCompanyResource\Pages;
 use App\Filament\Resources\ResCompanyResource\RelationManagers;
-use App\Models\ResCompany;
+use App\Models\Tenant\ResCompany;
 use App\Models\Tenant\ResCurrency;
-use App\Models\ResPartner;
+use App\Models\Tenant\ResPartner;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -31,7 +31,7 @@ class ResCompanyResource extends Resource
 {
     protected static ?string $model = ResCompany::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+    // protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
 
     public static function getNavigationGroup(): ?string
     {
@@ -45,16 +45,11 @@ class ResCompanyResource extends Resource
                 Section::make('')
                     ->schema([
                         TextInput::make('name')->translateLabel()->required(),
-
+                        
                         FileUpload::make('image')
                             ->disk('public')->directory('images/Company')
                             ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ])->translateLabel()->required(),
+                           ->translateLabel()->required(),
                     ])->columns(2),
 
                 Tabs::make('Heading')
@@ -212,12 +207,12 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('category_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                    // ->imageEditor()
+                                    // ->imageEditorAspectRatios([
+                                    //     '16:9',
+                                    //     '4:3',
+                                    //     '1:1',
+                                    // ]),
                             ]),
                         Tabs\Tab::make('Cart')
                             ->schema([
@@ -226,12 +221,12 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('cart_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                    // ->imageEditor()
+                                    // ->imageEditorAspectRatios([
+                                    //     '16:9',
+                                    //     '4:3',
+                                    //     '1:1',
+                                    // ]),
                             ]),
                         Tabs\Tab::make('Checkout')
                             ->schema([
@@ -240,12 +235,7 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('checkout_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                   
                             ]),
                         Tabs\Tab::make('Deal')
                             ->schema([
@@ -256,33 +246,18 @@ class ResCompanyResource extends Resource
                                 FileUpload::make('deal_banner_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                    ,
                                 FileUpload::make('deal_background_image_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                   ,
                             ]),
                         Tabs\Tab::make('Sign in/Up Banner')
                             ->schema([
                                 FileUpload::make('sign_banner_attachment')
                                     ->disk('public')->directory('images/Company')
                                     ->image()
-                                    ->imageEditor()
-                                    ->imageEditorAspectRatios([
-                                        '16:9',
-                                        '4:3',
-                                        '1:1',
-                                    ]),
+                                   ,
                             ]),
                             Tabs\Tab::make('Delivery/Pickup')
                             ->schema([
@@ -294,21 +269,11 @@ class ResCompanyResource extends Resource
                 FileUpload::make('faq_banner')
                     ->disk('public')->directory('images/faq_banner')
                     ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ])->translateLabel(),
+                    ->translateLabel(),
                 FileUpload::make('career_banner')
                     ->disk('public')->directory('images/career_banner')
                     ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ])->translateLabel(),
+                   ->translateLabel(),
             ])->columns(1);
     }
 
