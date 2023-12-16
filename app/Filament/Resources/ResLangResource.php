@@ -20,16 +20,16 @@ class ResLangResource extends Resource
 {
     public static function canViewAny(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = ResLang::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationGroup(): ?string
     {
         return __('Res');
-    }   
+    }
 
     public static function form(Form $form): Form
     {
@@ -72,17 +72,16 @@ class ResLangResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-          ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -90,15 +89,15 @@ class ResLangResource extends Resource
             'create' => Pages\CreateResLang::route('/create'),
             'edit' => Pages\EditResLang::route('/{record}/edit'),
         ];
-    } 
-  
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Lang');
     }
-    
+
     public static function getPluralModelLabel(): string
     {
         return __('Lang');
-    }   
+    }
 }

@@ -5,9 +5,9 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\SaleOrderResource\Pages;
 use App\Filament\Resources\SaleOrderResource\RelationManagers;
 use App\Models\Tenant\ProductProduct;
+use App\Models\Tenant\ResPartner;
 use App\Models\ResCompany;
 use App\Models\ResCurrency;
-use App\Models\ResPartner;
 use App\Models\Tenant\SaleOrder;
 use App\Models\User;
 use App\Models\Tenant\ZoneZone;
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class SaleOrderResource extends Resource
 {
     protected static ?string $model = SaleOrder::class;
@@ -65,11 +66,11 @@ class SaleOrderResource extends Resource
                         ->translateLabel(),
 
                     Hidden::make('company_id')
-                    ->default(auth()->user()->defaultCompany->id),
+                        ->default(auth()->user()->defaultCompany->id),
 
                     Select::make('partner_id')
                         ->relationship('partner', 'name')
-                        ->options(ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
+                        ->options(\App\Models\Tenant\ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
                         ->label('Customer')
                         ->searchable()
                         ->preload()
@@ -84,19 +85,17 @@ class SaleOrderResource extends Resource
                             $client_id = $get('partner_id');
                             $adresses = [];
                             if ($client_id) {
-                                $partner=Respartner::find($client_id);
-                                $default_address=[$partner->id=>'default address'];
+                                $partner = Respartner::find($client_id);
+                                $default_address = [$partner->id => 'default address'];
                                 $adresses = Respartner::where('parent_id', $client_id)->get()->pluck('name', 'id')->toArray();
-                                
-                                $adresses=array_merge($default_address,$adresses);
-                               
+
+                                $adresses = array_merge($default_address, $adresses);
                             }
                             return $adresses;
                         })
                         ->searchable()
                         ->preload()
-                        ->translateLabel()
-                       ,
+                        ->translateLabel(),
                     // Select::make('currency_id')
 
 
@@ -186,14 +185,14 @@ class SaleOrderResource extends Resource
                         ->translateLabel()
                         ->schema([
                             Select::make('product_id')
-                            ->columnSpan(3)
+                                ->columnSpan(3)
                                 ->relationship('product', 'name')
                                 ->reactive()
                                 ->translateLabel()
                                 ->options(ProductProduct::where('active', 1)->get()->pluck('name.en', 'id'))->required()
-                                ->afterStateUpdated(function ($state, callable $get, callable $set,$record) {
+                                ->afterStateUpdated(function ($state, callable $get, callable $set, $record) {
                                     $product = ProductProduct::find($state);
-                                    
+
                                     if ($product) {
                                         $product_name = $product->name;
                                         $set('name', $product_name['en']);
@@ -210,40 +209,40 @@ class SaleOrderResource extends Resource
                                             if (is_numeric($unit_price) && is_numeric($tax)) {
                                                 $total = $quantity * ($unit_price + $tax * $unit_price / 100);
                                                 $set('price_total', round($total * $quantity, 2));
-                                                $set('price_tax',round( $total - $unit_price * $quantity));
+                                                $set('price_tax', round($total - $unit_price * $quantity));
                                                 $set('price_reduce_taxinc', $total / $quantity);
                                                 $set('price_reduce_taxexcl', $unit_price);
                                             }
                                         }
-                                        $old_price=0;
-                                        $old_untaxed=0;
-                                        $old_price_tax=0;
-                                        if($record){
-                                            $old_price=$record->price_total;
-                                            $old_untaxed=$record->price_reduce_taxexcl;
-                                            $old_price_tax=$record->price_tax;
+                                        $old_price = 0;
+                                        $old_untaxed = 0;
+                                        $old_price_tax = 0;
+                                        if ($record) {
+                                            $old_price = $record->price_total;
+                                            $old_untaxed = $record->price_reduce_taxexcl;
+                                            $old_price_tax = $record->price_tax;
                                         }
-                                       
-                                        $old_total=$get('../../amount_total');
-                                        
-                                      
-                                        $set('../../amount_total',round($old_total-$old_price+$total * $quantity, 2));
-                                        $old_total_untaxed=$get('../../amount_untaxed');
-                                       
-                                        $set('../../amount_untaxed',round($old_total_untaxed-$old_untaxed+$unit_price,2));
-                                        $old_amount_tax=$get('../../amount_tax');
-                                        
-                                        $set('../../amount_tax', round($old_amount_tax-$old_price_tax+$total - $unit_price * $quantity,2));
+
+                                        $old_total = $get('../../amount_total');
+
+
+                                        $set('../../amount_total', round($old_total - $old_price + $total * $quantity, 2));
+                                        $old_total_untaxed = $get('../../amount_untaxed');
+
+                                        $set('../../amount_untaxed', round($old_total_untaxed - $old_untaxed + $unit_price, 2));
+                                        $old_amount_tax = $get('../../amount_tax');
+
+                                        $set('../../amount_tax', round($old_amount_tax - $old_price_tax + $total - $unit_price * $quantity, 2));
                                     }
                                 })->columnSpan(2),
                             Hidden::make('name'),
-                            TextInput::make('notes')->label('note')->translateLabel() ->columnSpan(3),
+                            TextInput::make('notes')->label('note')->translateLabel()->columnSpan(3),
                             TextInput::make('product_uom_qty')->numeric()->required()->Label('Quantity')
                                 ->minValue(1)
                                 ->default(1)
                                 ->reactive()
                                 ->translateLabel()
-                                ->afterStateUpdated(function ($state, callable $get, callable $set,$record) {
+                                ->afterStateUpdated(function ($state, callable $get, callable $set, $record) {
                                     if (is_numeric($state)) {
                                         // Trigger calculation when quantity is updated
                                         $tax = 0;
@@ -259,22 +258,22 @@ class SaleOrderResource extends Resource
                                             $set('price_reduce_taxexcl', $unit_price);
                                         }
                                     }
-                                    $old_price=0;
-                                    $old_untaxed=0;
-                                    $old_price_tax=0;
-                                    if($record){
-                                        $old_price=$record->price_total;
-                                        $old_untaxed=$record->price_reduce_taxexcl;
-                                        $old_price_tax=$record->price_tax;
+                                    $old_price = 0;
+                                    $old_untaxed = 0;
+                                    $old_price_tax = 0;
+                                    if ($record) {
+                                        $old_price = $record->price_total;
+                                        $old_untaxed = $record->price_reduce_taxexcl;
+                                        $old_price_tax = $record->price_tax;
                                     }
-                                    $old_total=$get('../../amount_total');
-                                    $set('../../amount_total',round($old_total-$old_price+$total, 2));
-                                    $old_total_untaxed=$get('../../amount_untaxed');
-                                   
-                                    $set('../../amount_untaxed',round($old_total_untaxed-$old_untaxed+$unit_price*$state,2));
-                                    $old_amount_tax=$get('../../amount_tax');
-                                    
-                                    $set('../../amount_tax', round($old_amount_tax-$old_price_tax+$total - $unit_price * $state,2));
+                                    $old_total = $get('../../amount_total');
+                                    $set('../../amount_total', round($old_total - $old_price + $total, 2));
+                                    $old_total_untaxed = $get('../../amount_untaxed');
+
+                                    $set('../../amount_untaxed', round($old_total_untaxed - $old_untaxed + $unit_price * $state, 2));
+                                    $old_amount_tax = $get('../../amount_tax');
+
+                                    $set('../../amount_tax', round($old_amount_tax - $old_price_tax + $total - $unit_price * $state, 2));
                                 }),
                             Hidden::make('price_tax'),
                             Hidden::make('price_reduce_taxexcl'),
@@ -283,7 +282,7 @@ class SaleOrderResource extends Resource
                                 ->minValue(0)
                                 ->translateLabel()
                                 ->reactive()
-                                ->afterStateUpdated(function ($state, callable $get, callable $set,$record) {
+                                ->afterStateUpdated(function ($state, callable $get, callable $set, $record) {
                                     if (is_numeric($state)) {
                                         // Trigger calculation when unit price is updated
                                         $tax = 0;
@@ -298,41 +297,38 @@ class SaleOrderResource extends Resource
                                             $set('price_reduce_taxinc', $total / $quantity);
                                             $set('price_reduce_taxexcl', $state);
                                         }
-                                     
-                                    } $old_price=0;
-                                    $old_untaxed=0;
-                                    $old_price_tax=0;
-                                    if($record){
-                                        $old_price=$record->price_total;
-                                        $old_untaxed=$record->price_reduce_taxexcl;
-                                        $old_price_tax=$record->price_tax;
                                     }
-                                    $old_total=$get('../../amount_total');
-                                    $set('../../amount_total',$old_total-$old_price+ round($total, 2));
-                                    $old_total_untaxed=$get('../../amount_untaxed');
-                                    
-                                    $set('../../amount_untaxed',round($old_total_untaxed-$old_untaxed+$state,2));
-                                    $old_amount_tax=$get('../../amount_tax');
-                                   
-                                    $set('../../amount_tax', round($old_amount_tax-$old_price_tax+$total - $state * $quantity,2));
-                                 
+                                    $old_price = 0;
+                                    $old_untaxed = 0;
+                                    $old_price_tax = 0;
+                                    if ($record) {
+                                        $old_price = $record->price_total;
+                                        $old_untaxed = $record->price_reduce_taxexcl;
+                                        $old_price_tax = $record->price_tax;
+                                    }
+                                    $old_total = $get('../../amount_total');
+                                    $set('../../amount_total', $old_total - $old_price + round($total, 2));
+                                    $old_total_untaxed = $get('../../amount_untaxed');
+
+                                    $set('../../amount_untaxed', round($old_total_untaxed - $old_untaxed + $state, 2));
+                                    $old_amount_tax = $get('../../amount_tax');
+
+                                    $set('../../amount_tax', round($old_amount_tax - $old_price_tax + $total - $state * $quantity, 2));
                                 }),
-                                // TextInput::make('tax')->required()->numeric()->Label('Taxes')->translateLabel()->readOnly()->default(function (callable $get){
-                                //     $tax=$get('product_id');
-                                //    return $tax;
-                                // }),
-                                Placeholder::make('tax')
+                            // TextInput::make('tax')->required()->numeric()->Label('Taxes')->translateLabel()->readOnly()->default(function (callable $get){
+                            //     $tax=$get('product_id');
+                            //    return $tax;
+                            // }),
+                            Placeholder::make('tax')
                                 ->label('Tax %')
                                 ->content(function (callable $get): string {
-                                    $product_id=$get('product_id');
-                                    $tax=0;
-                                    if($product_id){
+                                    $product_id = $get('product_id');
+                                    $tax = 0;
+                                    if ($product_id) {
                                         $product = ProductProduct::find($product_id);
-                                        $tax=Tax::getProductProductTva($product);
-                                   
+                                        $tax = Tax::getProductProductTva($product);
                                     }
                                     return $tax;
-                                   
                                 }),
                             TextInput::make('price_total')->numeric()->Label('Total')->translateLabel()->readOnly(),
                             Section::make('')
@@ -341,17 +337,16 @@ class SaleOrderResource extends Resource
                                         ->relationship('saleOrderLineImage')
                                         ->schema([
                                             FileUpload::make('image')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->imageEditor()
+                                                ->openable()
+                                                ->downloadable()
+                                                ->imageEditor()
                                                 ->image()
                                                 ->disk('public')->directory('images/orderlines')
                                                 ->translateLabel()
                                         ])
-                                ])->hidden(function($record){
-                                    if($record){
+                                ])->hidden(function ($record) {
+                                    if ($record) {
                                         return $record->saleOrderLineImage->isEmpty();
-                                        
                                     } else return true;
                                 }),
                         ])->reorderable(true)
@@ -359,7 +354,7 @@ class SaleOrderResource extends Resource
 
                 ]),
                 Section::make('Total Amount')->schema([
-                  
+
                     TextInput::make('amount_untaxed')->label('Untaxed Amount')->readOnly(),
                     TextInput::make('amount_tax')->label('Taxes')->readOnly(),
                     TextInput::make('amount_total')->label('Total')->readOnly()->columnSpan(2),
@@ -405,11 +400,11 @@ class SaleOrderResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-             ->defaultSort('created_at', 'desc')
+            ->defaultSort('created_at', 'desc')
             ->columns([
 
                 TextColumn::make('name'),
-                TextColumn::make('created_at')->label('Creation')->translateLabel()->date() ->sortable(),
+                TextColumn::make('created_at')->label('Creation')->translateLabel()->date()->sortable(),
                 TextColumn::make('user.name')->label("Customer")->translateLabel(),
 
                 TextColumn::make('order_status')->translateLabel()
@@ -444,13 +439,10 @@ class SaleOrderResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('Bill')
-                ->url(fn(SaleOrder $record):string => route('get.bill', ['record' => $record->id]))
-                ->openUrlInNewTab()
+                    ->url(fn (SaleOrder $record): string => route('get.bill', ['record' => $record->id]))
+                    ->openUrlInNewTab()
             ])
-            ->bulkActions([
-                
-                   
-                ]);
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
@@ -477,5 +469,4 @@ class SaleOrderResource extends Resource
     {
         return __('Sale Order');
     }
-    
 }

@@ -16,15 +16,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ResGroupResource extends Resource
 {
     public static function canViewAny(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = ResGroup::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationGroup(): ?string
     {
@@ -40,9 +41,7 @@ class ResGroupResource extends Resource
                         TextInput::make('en'),
                         TextInput::make('ar'),
                     ])
-                    ->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+
                     ->required()
                     ->translateLabel(),
                 KeyValue::make('comment')
@@ -50,9 +49,7 @@ class ResGroupResource extends Resource
                         TextInput::make('en'),
                         TextInput::make('ar'),
                     ])
-                    ->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+
                     ->translateLabel(),
                 Toggle::make('share')->translateLabel(),
             ]);
@@ -71,8 +68,7 @@ class ResGroupResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-           ;
+            ]);
     }
 
     public static function getRelations(): array

@@ -89,12 +89,9 @@ class ProductTemplateResource extends Resource
                             ])
                             ->valueLabel('Name')
 
-                            ->editableKeys(false)
                             ->keyLabel('Language')
                             ->translateLabel()
 
-                            ->deletable(false)
-                            ->addable(false)
                             ->columnSpan(1)
 
                             ->required(),
@@ -103,12 +100,12 @@ class ProductTemplateResource extends Resource
                             ->translateLabel()
                             ->disk('public')->directory('images/ProductTemplate')
                             ->image()
-                            ->imageEditor()
-                            ->imageEditorAspectRatios([
-                                '16:9',
-                                '4:3',
-                                '1:1',
-                            ]),
+                        // ->imageEditor()
+                        // ->imageEditorAspectRatios([
+                        //     '16:9',
+                        //     '4:3',
+                        //     '1:1',
+                        // ]),
                         // ->required(),
 
                     ])->columns(2),
@@ -222,7 +219,6 @@ class ProductTemplateResource extends Resource
 
                                     ->relationship('category', 'name')
                                     ->options(ProductCategory::get()->pluck('name.en', 'id'))
-                                    ->live()
                                     ->translateLabel()
                                     ->required(),
                                 Select::make('company_id')
@@ -271,14 +267,12 @@ class ProductTemplateResource extends Resource
                                             })
                                             ->searchable()
                                             ->preload()
-                                            ->live()
                                             ->required()
                                             ->reactive(),
                                         Select::make('values')
                                             ->relationship('valuesOfAttributes', 'id')
                                             ->label('value')
                                             ->reactive()
-                                            ->live()
                                             ->preload()
                                             ->translateLabel()
                                             ->options(function (callable $get) {
@@ -313,8 +307,6 @@ class ProductTemplateResource extends Resource
 
                                     ])
                                     ->visibleOn('edit')
-                                    ->addable(true)
-                                    ->deletable(true)
 
                                     ->columns(2),
 
@@ -350,9 +342,9 @@ class ProductTemplateResource extends Resource
                                             ->multiple()
 
                                     ])
-                                    ->deleteAction(
-                                        fn (Action $action) => $action->requiresConfirmation(),
-                                    )
+                                    // ->deleteAction(
+                                    //     fn (Action $action) => $action->requiresConfirmation(),
+                                    // )
                                     ->visibleOn('create')
                                     ->defaultItems(0)
                                     ->columns(2),
@@ -411,7 +403,6 @@ class ProductTemplateResource extends Resource
 
                                     ->multiple()
                                     ->searchable()
-                                    ->live()
                                 // ->visible(function (callable $get) {
                                 //     $main = $get('is_combo');
                                 //     if ($main)
@@ -435,7 +426,6 @@ class ProductTemplateResource extends Resource
                                     ->multiple()
                                     ->searchable()
                                     ->preload()
-                                    ->live()
                                     ->visible(function (callable $get) {
                                         $main = $get('is_combo');
                                         if ($main)
@@ -456,7 +446,6 @@ class ProductTemplateResource extends Resource
                                         return $removableIngredients;
                                     })
                                     ->preload()
-                                    ->live()
                                     ->multiple()
                                     ->searchable()
                                     ->visible(function (callable $get) {
@@ -489,7 +478,6 @@ class ProductTemplateResource extends Resource
                                     })->multiple()
                                     ->searchable()
                                     ->preload()
-                                    ->live()
                                 // ->visible(function (callable $get) {
                                 //     $main = $get('is_combo');
                                 //     if ($main)
@@ -515,10 +503,8 @@ class ProductTemplateResource extends Resource
                                     ])
                                     ->valueLabel('Drinks Caption')
                                     ->translateLabel()
-                                    ->editableKeys(false)
                                     ->keyLabel('Language')
-                                    ->deletable(false)
-                                    ->addable(false)
+
                                     ->columnSpan(1),
                                 // TextInput::make('related_caption')
 
@@ -534,10 +520,8 @@ class ProductTemplateResource extends Resource
                                     ])
                                     ->valueLabel('Related Caption')
                                     ->translateLabel()
-                                    ->editableKeys(false)
                                     ->keyLabel('Language')
-                                    ->deletable(false)
-                                    ->addable(false)
+
                                     ->columnSpan(1),
                                 Select::make('default_drink_id')
                                     ->translateLabel()
@@ -565,7 +549,6 @@ class ProductTemplateResource extends Resource
                                         return ProductProduct::all()->pluck('name.en', 'id');
                                     })
 
-                                    // ->live()
                                     ->multiple()
                                     ->nullable(),
 
@@ -574,7 +557,6 @@ class ProductTemplateResource extends Resource
                                     ->relationship('relatedProducts',  'related_id')
                                     ->options(ProductProduct::all()->pluck('name.en', 'id'))
                                     ->preload()
-                                    ->live()
                                     ->multiple()
                                     ->nullable(),
 
@@ -592,10 +574,8 @@ class ProductTemplateResource extends Resource
                                     ])
                                     ->valueLabel('Sides Caption')
                                     ->translateLabel()
-                                    ->editableKeys(false)
                                     ->keyLabel('Language')
-                                    ->deletable(false)
-                                    ->addable(false)
+
                                     ->columnSpan(1),
                                 // TextInput::make('liked_caption')
 
@@ -610,10 +590,8 @@ class ProductTemplateResource extends Resource
                                             ->rows(10),
                                     ])
                                     ->valueLabel('Liked Caption')
-                                    ->editableKeys(false)
                                     ->keyLabel('Language')
-                                    ->deletable(false)
-                                    ->addable(false)
+
                                     ->columnSpan(1),
 
                                 Select::make('sides_products_id')
@@ -623,7 +601,6 @@ class ProductTemplateResource extends Resource
                                     ->options(ProductProduct::all()->pluck('name.en', 'id'))
 
                                     ->preload()
-                                    ->live()
                                     ->multiple()
                                     ->nullable(),
 
@@ -634,7 +611,6 @@ class ProductTemplateResource extends Resource
                                     ->options(ProductProduct::all()->pluck('name.en', 'id'))
 
                                     ->preload()
-                                    ->live()
                                     ->multiple()
                                     ->nullable(),
 
@@ -651,10 +627,8 @@ class ProductTemplateResource extends Resource
                                             ->rows(10),
                                     ])
                                     ->valueLabel('Dessert Caption')
-                                    ->editableKeys(false)
                                     ->keyLabel('Language')
-                                    ->deletable(false)
-                                    ->addable(false)
+
                                     ->columnSpan(1),
                                 Select::make('dessert_products_id')
                                     ->translateLabel()
@@ -663,7 +637,6 @@ class ProductTemplateResource extends Resource
                                     ->options(ProductProduct::all()->pluck('name.en', 'id'))
 
                                     ->preload()
-                                    ->live()
                                     ->multiple()
                                     ->nullable(),
                             ])->columns(2),

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ResCurrencyResource extends Resource
 {
     protected static ?string $model = ResCurrency::class;
@@ -40,10 +41,8 @@ class ResCurrencyResource extends Resource
                     ])
                     ->translateLabel()
                     ->valueLabel(__('Name'))
-                    ->editableKeys(false)
                     ->keyLabel(__('Language'))
-                    ->deletable(false)
-                    ->addable(false)
+
                     ->columnSpan(1)
                     ->required(),
                 KeyValue::make('symbol')
@@ -53,10 +52,8 @@ class ResCurrencyResource extends Resource
                     ])
                     ->translateLabel()
                     ->valueLabel(__('Name'))
-                    ->editableKeys(false)
                     ->keyLabel(__('Language'))
-                    ->deletable(false)
-                    ->addable(false)
+
                     ->columnSpan(1)
                     ->required(),
 

@@ -20,15 +20,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductPricelistItemResource extends Resource
 {
     public static function canViewAny(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = ProductPricelistItem::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -86,17 +87,16 @@ class ProductPricelistItemResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-          ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -104,13 +104,13 @@ class ProductPricelistItemResource extends Resource
             'create' => Pages\CreateProductPricelistItem::route('/create'),
             'edit' => Pages\EditProductPricelistItem::route('/{record}/edit'),
         ];
-    }    
-   
+    }
+
     public static function getModelLabel(): string
     {
         return __('Price List Item');
     }
-    
+
     public static function getPluralModelLabel(): string
     {
         return __('Price List Items');

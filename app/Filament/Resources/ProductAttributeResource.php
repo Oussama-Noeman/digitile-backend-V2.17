@@ -17,11 +17,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductAttributeResource extends Resource
 {
     protected static ?string $model = ProductAttribute::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
+    // protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
     public static function getNavigationGroup(): ?string
     {
         return __('Product Management');
@@ -33,15 +34,13 @@ class ProductAttributeResource extends Resource
             ->schema([
 
                 KeyValue::make('name')
-                ->translateLabel()
+                    ->translateLabel()
                     ->schema([
                         TextInput::make('en')->required(),
                         TextInput::make('ar')->required(),
 
-                    ])->required()
-                    ->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false),
+                    ])->required(),
+
 
             ])->columns(1);
     }
@@ -62,8 +61,7 @@ class ProductAttributeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-           ;
+            ]);
     }
 
     public static function getRelations(): array
@@ -85,8 +83,8 @@ class ProductAttributeResource extends Resource
     {
         return __(' Attributes');
     }
-public static function getPluralModelLabel(): string
-{
-    return __(' Attributes');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __(' Attributes');
+    }
 }

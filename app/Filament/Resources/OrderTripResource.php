@@ -16,15 +16,16 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class OrderTripResource extends Resource
 {
     public static function canViewAny(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = OrdersTrip::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     public static function getNavigationGroup(): ?string
     {
         return __('Delivery');
@@ -34,7 +35,7 @@ class OrderTripResource extends Resource
         return $form
             ->schema([
                 Select::make('driver_id')
-                    ->relationship('partner','name')
+                    ->relationship('partner', 'name')
                     ->searchable()
                     ->preload(),
                 TextInput::make('name')
@@ -48,7 +49,7 @@ class OrderTripResource extends Resource
                     ->numeric(),
                 TextInput::make('rest_totla')
                     ->numeric(),
-                                
+
             ]);
     }
 
@@ -63,17 +64,16 @@ class OrderTripResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-          ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -81,14 +81,14 @@ class OrderTripResource extends Resource
             'create' => Pages\CreateOrderTrip::route('/create'),
             'edit' => Pages\EditOrderTrip::route('/{record}/edit'),
         ];
-    }    
-   
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Order Trip');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Order Trip');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Order Trip');
+    }
 }

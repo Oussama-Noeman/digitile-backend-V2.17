@@ -22,15 +22,16 @@ use Filament\Tables\Columns\ToggleColumn;
 use Illuminate\Database\Eloquent\Factories\Relationship;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductAttributeValueResource extends Resource
 {
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = ProductAttributeValue::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    // protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
     {
@@ -42,27 +43,23 @@ class ProductAttributeValueResource extends Resource
                         TextInput::make('en'),
                         TextInput::make('ar'),
 
-                    ])->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+                    ])
                     ->required(),
                 Select::make('attribute_id')
-                ->translateLabel()
+                    ->translateLabel()
                     ->relationship('attribute', 'name')
                     ->options(
                         ProductAttribute::get()->pluck('name.en', 'id')
                     )
                     ->createOptionForm([
                         KeyValue::make('name')
-                        ->translateLabel()
+                            ->translateLabel()
                             ->schema([
                                 TextInput::make('en'),
                                 TextInput::make('ar'),
 
                             ])
-                            ->addable(false)
-                            ->deletable(false)
-                            ->editableKeys(false)
+
                             ->required(),
 
                     ])
@@ -85,8 +82,7 @@ class ProductAttributeValueResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-           ;
+            ]);
     }
 
     public static function getRelations(): array
@@ -104,13 +100,13 @@ class ProductAttributeValueResource extends Resource
             'edit' => Pages\EditProductAttributeValue::route('/{record}/edit'),
         ];
     }
-  
+
     public static function getlModelLabel(): string
     {
         return __('Product Attributes Values');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Product Attributes Values');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Product Attributes Values');
+    }
 }

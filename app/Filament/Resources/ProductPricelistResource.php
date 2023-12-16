@@ -22,56 +22,56 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductPricelistResource extends Resource
 {
     protected static ?string $model = ProductPricelist::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    // protected static ?string $navigationIcon = 'heroicon-o-banknotes';
     public static function getNavigationGroup(): ?string
     {
         return __('Promotion Management');
-    } 
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 // TextInput::make('sequence')->numeric()->nullable()->translateLabel(),
-            Select::make('currency_id')->translateLabel()
-                ->options(ResCurrency::all()->pluck('name.en', 'id'))
-                ->relationship('currency', 'name')
-                ->required(),
+                Select::make('currency_id')->translateLabel()
+                    ->options(ResCurrency::all()->pluck('name.en', 'id'))
+                    ->relationship('currency', 'name')
+                    ->required(),
                 Select::make('company_id')->translateLabel()
-                ->options(ResCompany::all()->pluck('name', 'id'))
-                ->relationship('company', 'name')
-                ->required(),
+                    ->options(ResCompany::all()->pluck('name', 'id'))
+                    ->relationship('company', 'name')
+                    ->required(),
                 KeyValue::make('name')->translateLabel()
-                ->schema([
-                    TextInput::make('en'),
-                    TextInput::make('ar'),
+                    ->schema([
+                        TextInput::make('en'),
+                        TextInput::make('ar'),
 
-                ])->addable(false)
-                ->deletable(false)
-                ->editableKeys(false)
-                ->required(),
+                    ])
+                    ->required(),
                 FileUpload::make('image')->translateLabel()
-                ->disk('public')->directory('images/ProductPricelist')
-                ->image()
-                ->imageEditor()
-                ->imageEditorAspectRatios([
-                    '16:9',
-                    '4:3',
-                    '1:1',
-                ])->required(),
-            // TextInput::make('discount_policy')->nullable()->translateLabel(),
-            
-            Toggle::make('active')->nullable()->translateLabel(),
-            // TextInput::make('code')->nullable()->translateLabel(),
-            // Toggle::make('selectable')->nullable()->translateLabel(),
-            Toggle::make('is_published')->nullable()->translateLabel(),
-            // Toggle::make('is_promotion')->nullable()->translateLabel(),
-            // Toggle::make('is_banner')->nullable()->translateLabel(),
-            // Toggle::make('is_offer')->nullable()->translateLabel(),
+                    ->disk('public')->directory('images/ProductPricelist')
+                    ->image()
+                    // ->imageEditor()
+                    // ->imageEditorAspectRatios([
+                    //     '16:9',
+                    //     '4:3',
+                    //     '1:1',
+                    // ])
+                    ->required(),
+                // TextInput::make('discount_policy')->nullable()->translateLabel(),
+
+                Toggle::make('active')->nullable()->translateLabel(),
+                // TextInput::make('code')->nullable()->translateLabel(),
+                // Toggle::make('selectable')->nullable()->translateLabel(),
+                Toggle::make('is_published')->nullable()->translateLabel(),
+                // Toggle::make('is_promotion')->nullable()->translateLabel(),
+                // Toggle::make('is_banner')->nullable()->translateLabel(),
+                // Toggle::make('is_offer')->nullable()->translateLabel(),
             ]);
     }
 
@@ -99,17 +99,16 @@ class ProductPricelistResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-           ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             RelationManagers\ProductPricelistItemsRelationManager::class,
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -117,14 +116,14 @@ class ProductPricelistResource extends Resource
             'create' => Pages\CreateProductPricelist::route('/create'),
             'edit' => Pages\EditProductPricelist::route('/{record}/edit'),
         ];
-    }    
-   
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Price List');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Price List');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Price List');
+    }
 }

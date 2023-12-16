@@ -35,32 +35,38 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Crypt;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
+use function PHPUnit\Framework\isEmpty;
+
 class ResPartnerResource extends Resource
 {
     protected static ?string $model = ResPartner::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-users';
     public static function getNavigationGroup(): ?string
-{
-    return __('User Management');
-}
+    {
+        return __('User Management');
+    }
     // protected static ?string $tenantOwnershipRelationshipName = 'company';
     public static function form(Form $form): Form
     {
-       
+
         return $form
             ->schema([
-                Select::make('parent_id')->relationship('parent', 'id')
-                    ->options(ResPartner::all()->pluck('name', 'id'))
-                    ,
+                Select::make('parent_id')->relationship('parent', 'name')
+                    // ->options(function () {
+                    //     $parents = ResPartner::all()->pluck('name', 'id')->toArray();
+                    //     if (!empty($parents)) {
+                    //         return $parents;
+                    //     }
+                    //     return [];
+                    // })
+                    ->options(ResPartner::all()->pluck('name', 'id')),
+
 
                 Select::make('company_id')
                     ->relationship('company', 'name')
-                    ->options(function () {
-                        $companies = ResCompany::all()->pluck('name', 'id');
-                        // dd($companies);
-                        return $companies;
-                    })->reactive()
+                    ->options(ResCompany::all()->pluck('name', 'id'))->reactive()
                     ->label('Company')->translateLabel(),
                 TextInput::make('name')->translateLabel(),
                 TextInput::make('display_name')->translateLabel(),
@@ -87,13 +93,13 @@ class ResPartnerResource extends Resource
                     ->label('Image')
                     ->disk('public')->directory('images/PartenerCategory')
                     ->image()
-                    ->translateLabel()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ]),
+                    ->translateLabel(),
+                // ->imageEditor()
+                // ->imageEditorAspectRatios([
+                //     '16:9',
+                //     '4:3',
+                //     '1:1',
+                // ]),
                 Radio::make('role')
                     ->options([
                         'is_client' => 'is_client ',
@@ -101,11 +107,11 @@ class ResPartnerResource extends Resource
                         'is_member' => 'is_member',
                         'is_manager' => 'is_manager',
                         'is_chef' => 'is_chef',
-                       
+
                     ])->reactive()
                     ->translateLabel()
                     ->required(),
-                    Select::make('kitchen_id')
+                Select::make('kitchen_id')
                     ->translateLabel()
                     ->relationship('kitchen', 'name', function ($query, $get) {
                         $query->where('company_id', $get('company_id'));
@@ -119,56 +125,56 @@ class ResPartnerResource extends Resource
                         $chef = $get('role');
                         return $chef == 'is_chef';
                     })
-                ]);
-            //     Actions::make([
-            //         Action::make('create user')
-                     
-            //             ->label('Create User')
-            //             ->translateLabel()
-            //             ->form([
-            //                 TextInput::make('name'),
-            //                 TextInput::make('login'),
-            //                 TextInput::make('email'),
-            //                 TextInput::make('password')
-            //                     ->password()
-            //                     ->confirmed(),
-            //                 TextInput::make('password_confirmation')
-            //                     ->password(),
-            //             ])
-            //             ->action(function (array $data, ResPartner $record) {
-            //                 //                          dd($data['name']);
-            //                 $user = User::create([
-            //                     'name' => $data['name'],
-            //                     'email' => $data['email'],
-            //                     'login' => $data['login'],
-            //                     'company_id' => $record->company_id,
-            //                     'password' => bcrypt($data['password']),
-            //                     'partner_id' => $record->id
-            //                 ]);
-            //                 $record->user_id = $user->id;
-            //                 $record->save();
-            //                 Notification::make()
-            //                     ->success()
-            //                     ->title('User Created')
-            //                     ->persistent()
-            //                     ->send();
-            //             })
+            ]);
+        //     Actions::make([
+        //         Action::make('create user')
 
-            //     ])->hiddenOn('create')
-            //         ->visible(function (ResPartner $record) {
-            //             $user = User::where('partner_id', $record->id)->first();
-            //             // dd($user);
-            //             if ($user) {
-            //                 return false;
-            //             } else {
-            //                 return true;
-            //             }
-            //         }),
-            //     Section::make('')->schema([Placeholder::make('Please Create before adding your address')->translateLabel()])->visibleOn('create'),
-            //     Section::make('')->schema([SetMarker::make('latt_long')->label('adress')->translateLabel()])->visibleOn('edit'),
+        //             ->label('Create User')
+        //             ->translateLabel()
+        //             ->form([
+        //                 TextInput::make('name'),
+        //                 TextInput::make('login'),
+        //                 TextInput::make('email'),
+        //                 TextInput::make('password')
+        //                     ->password()
+        //                     ->confirmed(),
+        //                 TextInput::make('password_confirmation')
+        //                     ->password(),
+        //             ])
+        //             ->action(function (array $data, ResPartner $record) {
+        //                 //                          dd($data['name']);
+        //                 $user = User::create([
+        //                     'name' => $data['name'],
+        //                     'email' => $data['email'],
+        //                     'login' => $data['login'],
+        //                     'company_id' => $record->company_id,
+        //                     'password' => bcrypt($data['password']),
+        //                     'partner_id' => $record->id
+        //                 ]);
+        //                 $record->user_id = $user->id;
+        //                 $record->save();
+        //                 Notification::make()
+        //                     ->success()
+        //                     ->title('User Created')
+        //                     ->persistent()
+        //                     ->send();
+        //             })
+
+        //     ])->hiddenOn('create')
+        //         ->visible(function (ResPartner $record) {
+        //             $user = User::where('partner_id', $record->id)->first();
+        //             // dd($user);
+        //             if ($user) {
+        //                 return false;
+        //             } else {
+        //                 return true;
+        //             }
+        //         }),
+        //     Section::make('')->schema([Placeholder::make('Please Create before adding your address')->translateLabel()])->visibleOn('create'),
+        //     Section::make('')->schema([SetMarker::make('latt_long')->label('adress')->translateLabel()])->visibleOn('edit'),
 
 
-            // ]);
+        // ]);
     }
 
     public static function table(Table $table): Table
@@ -178,23 +184,23 @@ class ResPartnerResource extends Resource
                 TextColumn::make('users.name')->translateLabel(),
                 ImageColumn::make('team_image_attachment')->label('Image')->translateLabel(),
 
-//                TextColumn::make('parent.name'),
-//                TextColumn::make('company.name.en'),
-//                TextColumn::make('display_name'),
-//                TextColumn::make('ref'),
-//                TextColumn::make('lang'),
+                //                TextColumn::make('parent.name'),
+                //                TextColumn::make('company.name.en'),
+                //                TextColumn::make('display_name'),
+                //                TextColumn::make('ref'),
+                //                TextColumn::make('lang'),
                 TextColumn::make('city')->translateLabel(),
                 TextColumn::make('street')->translateLabel(),
-//                TextColumn::make('email'),
-//                TextColumn::make('phone'),
-//                TextColumn::make('mobile'),
-//                TextColumn::make('partner_latitude'),
-//                TextColumn::make('partner_longitude'),
-//                ToggleColumn::make('is_client'),
-//                ToggleColumn::make('is_driver'),
-//                ToggleColumn::make('is_member'),
-//                ToggleColumn::make('is_main'),
-//                ToggleColumn::make('position'),
+                //                TextColumn::make('email'),
+                //                TextColumn::make('phone'),
+                //                TextColumn::make('mobile'),
+                //                TextColumn::make('partner_latitude'),
+                //                TextColumn::make('partner_longitude'),
+                //                ToggleColumn::make('is_client'),
+                //                ToggleColumn::make('is_driver'),
+                //                ToggleColumn::make('is_member'),
+                //                ToggleColumn::make('is_main'),
+                //                ToggleColumn::make('position'),
             ])
             ->filters([
                 //
@@ -202,10 +208,7 @@ class ResPartnerResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-             
-            ]);
-            
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
@@ -228,8 +231,8 @@ class ResPartnerResource extends Resource
     {
         return __('Contacts');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Contacts');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Contacts');
+    }
 }
