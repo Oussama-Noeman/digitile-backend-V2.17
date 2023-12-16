@@ -2,7 +2,7 @@
 
 namespace App\Forms\Components;
 
-use App\Models\ZoneZone;
+use App\Models\Tenant\ZoneZone;
 use Filament\Forms\Components\Field;
 class DrawZone extends Field
 {
