@@ -13,6 +13,14 @@ use App\Filament\Resources\ContactUsResource;
 use App\Filament\Resources\CouponResource;
 use App\Filament\Resources\CustomerFeedbackResource;
 use App\Filament\Resources\DigitileKitchenResource;
+use App\Filament\Resources\DigitileOrderKitchenLineResource;
+use App\Filament\Resources\DigitileOrderKitchenResource;
+use App\Filament\Resources\DriverChatResource;
+use App\Filament\Resources\FirstOrderResource;
+use App\Filament\Resources\FreeDeliveryResource;
+use App\Filament\Resources\HrApplicationResource;
+use App\Filament\Resources\HrJobResource;
+use App\Filament\Resources\MailingContactResource;
 use App\Filament\Resources\MainBanner1Resource;
 use App\Filament\Resources\ResCompanyResource;
 use App\Filament\Resources\SubscriberResource;
@@ -60,6 +68,14 @@ class AppServiceProvider extends ServiceProvider
                     ...CouponResource::getNavigationItems(),
                     ...CustomerFeedbackResource::getNavigationItems(),
                     ...DigitileKitchenResource::getNavigationItems(),
+                    ...DigitileOrderKitchenLineResource::getNavigationItems(),
+                    ...DigitileOrderKitchenResource::getNavigationItems(),
+                    ...DriverChatResource::getNavigationItems(),
+                    ...FirstOrderResource::getNavigationItems(),
+                    ...FreeDeliveryResource::getNavigationItems(),
+                    ...HrApplicationResource::getNavigationItems(),
+                    ...HrJobResource::getNavigationItems(),
+                    ...MailingContactResource::getNavigationItems(),
                     ...ZoneZoneResource::getNavigationItems(),
                     ...ResCompanyResource::getNavigationItems(),
                 ]);
@@ -73,7 +89,7 @@ class AppServiceProvider extends ServiceProvider
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))
                         ->url(route('filament.pages.dashboard')),
                     ...SubscriberResource::getNavigationItems(),
-                   
+
                     // ...UserResource::getNavigationItems()
                 ]);
             }
