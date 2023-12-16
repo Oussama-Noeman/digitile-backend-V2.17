@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\DigitileKitchenResource\Pages;
 
 use App\Filament\Resources\DigitileKitchenResource;
-use App\Models\DigitileKitchen;
+use App\Models\Tenant\DigitileKitchen;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 

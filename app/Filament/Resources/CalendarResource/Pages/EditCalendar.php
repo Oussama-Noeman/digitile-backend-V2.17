@@ -4,6 +4,7 @@ namespace App\Filament\Resources\CalendarResource\Pages;
 
 use App\Filament\Resources\CalendarResource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditCalendar extends EditRecord
@@ -18,7 +19,7 @@ class EditCalendar extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
     public function getTitle(): string 

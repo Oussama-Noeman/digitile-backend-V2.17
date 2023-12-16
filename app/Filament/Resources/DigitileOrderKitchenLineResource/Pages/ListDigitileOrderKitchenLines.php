@@ -4,6 +4,7 @@ namespace App\Filament\Resources\DigitileOrderKitchenLineResource\Pages;
 
 use App\Filament\Resources\DigitileOrderKitchenLineResource;
 use Filament\Actions;
+use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListDigitileOrderKitchenLines extends ListRecords
@@ -13,7 +14,7 @@ class ListDigitileOrderKitchenLines extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

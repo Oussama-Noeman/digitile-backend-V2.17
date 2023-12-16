@@ -3,9 +3,10 @@
 namespace App\Filament\Resources\DigitileKitchenResource\Pages;
 
 use App\Filament\Resources\DigitileKitchenResource;
-use App\Models\DigitileKitchen;
+use App\Models\Tenant\DigitileKitchen;
 use Filament\Actions;
 use Filament\Notifications\Notification;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditDigitileKitchen extends EditRecord
@@ -15,7 +16,7 @@ class EditDigitileKitchen extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
     protected function getRedirectUrl(): string

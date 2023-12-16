@@ -4,6 +4,8 @@ namespace App\Filament\Resources\AboutUsMissionResource\Pages;
 
 use App\Filament\Resources\AboutUsMissionResource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
+use Filament\Pages\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditAboutUsMission extends EditRecord
@@ -18,8 +20,8 @@ class EditAboutUsMission extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\ViewAction::make(),
-            Actions\DeleteAction::make(),
+            ViewAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

@@ -4,6 +4,7 @@ namespace App\Filament\Resources\AboutUsVisionResource\Pages;
 
 use App\Filament\Resources\AboutUsVisionResource;
 use Filament\Actions;
+use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAboutUsVisions extends ListRecords
@@ -13,7 +14,7 @@ class ListAboutUsVisions extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

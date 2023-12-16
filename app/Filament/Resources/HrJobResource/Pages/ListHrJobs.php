@@ -4,6 +4,7 @@ namespace App\Filament\Resources\HrJobResource\Pages;
 
 use App\Filament\Resources\HrJobResource;
 use Filament\Actions;
+use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListHrJobs extends ListRecords
@@ -13,7 +14,7 @@ class ListHrJobs extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }
