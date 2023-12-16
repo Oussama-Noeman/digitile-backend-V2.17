@@ -4,6 +4,7 @@ namespace App\Filament\Resources\FreeDeliveryResource\Pages;
 
 use App\Filament\Resources\FreeDeliveryResource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditFreeDelivery extends EditRecord
@@ -13,7 +14,7 @@ class EditFreeDelivery extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+           DeleteAction::make(),
         ];
     }
 }

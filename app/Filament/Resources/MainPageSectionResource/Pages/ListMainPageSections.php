@@ -4,6 +4,7 @@ namespace App\Filament\Resources\MainPageSectionResource\Pages;
 
 use App\Filament\Resources\MainPageSectionResource;
 use Filament\Actions;
+use Filament\Pages\Actions\CreateAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListMainPageSections extends ListRecords
@@ -13,7 +14,7 @@ class ListMainPageSections extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            CreateAction::make(),
         ];
     }
 }

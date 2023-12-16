@@ -4,6 +4,7 @@ namespace App\Filament\Resources\CareerInformationResource\Pages;
 
 use App\Filament\Resources\CareerInformationResource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditCareerInformation extends EditRecord
@@ -13,7 +14,7 @@ class EditCareerInformation extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 }

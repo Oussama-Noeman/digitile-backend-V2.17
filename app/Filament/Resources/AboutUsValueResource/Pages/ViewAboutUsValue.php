@@ -4,6 +4,7 @@ namespace App\Filament\Resources\AboutUsValueResource\Pages;
 
 use App\Filament\Resources\AboutUsValueResource;
 use Filament\Actions;
+use Filament\Pages\Actions\EditAction;
 use Filament\Resources\Pages\ViewRecord;
 
 class ViewAboutUsValue extends ViewRecord
@@ -13,7 +14,7 @@ class ViewAboutUsValue extends ViewRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\EditAction::make(),
+            EditAction::make(),
         ];
     }
 }

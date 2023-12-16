@@ -5,6 +5,7 @@ namespace App\Filament\Resources\FirstOrderResource\Pages;
 use App\Filament\Resources\FirstOrderResource;
 use Filament\Actions;
 use Filament\Notifications\Notification;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditFirstOrder extends EditRecord
@@ -14,7 +15,7 @@ class EditFirstOrder extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
 

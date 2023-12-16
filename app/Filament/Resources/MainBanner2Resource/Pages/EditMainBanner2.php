@@ -4,6 +4,7 @@ namespace App\Filament\Resources\MainBanner2Resource\Pages;
 
 use App\Filament\Resources\MainBanner2Resource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditMainBanner2 extends EditRecord
@@ -13,7 +14,7 @@ class EditMainBanner2 extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+           DeleteAction::make(),
         ];
     }
     protected function getRedirectUrl(): string

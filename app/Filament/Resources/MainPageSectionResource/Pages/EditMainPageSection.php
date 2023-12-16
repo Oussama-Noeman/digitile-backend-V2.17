@@ -4,6 +4,7 @@ namespace App\Filament\Resources\MainPageSectionResource\Pages;
 
 use App\Filament\Resources\MainPageSectionResource;
 use Filament\Actions;
+use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;
 
 class EditMainPageSection extends EditRecord
@@ -13,7 +14,7 @@ class EditMainPageSection extends EditRecord
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            DeleteAction::make(),
         ];
     }
     protected function getRedirectUrl(): string
