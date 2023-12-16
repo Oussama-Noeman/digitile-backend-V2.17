@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Filament\Resources\ProductTagResource\Pages;
+
+use App\Filament\Resources\ProductTagResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateProductTag extends CreateRecord
+{
+    protected static string $resource = ProductTagResource::class;
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+    public function getTitle(): string 
+    {
+        return __('Create Tag');
+    }}
