@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Filament\Resources\MainBanner1Resource;
 use App\Filament\Resources\SubscriberResource;
 use App\Filament\Resources\ZoneZoneResource;
+use App\Models\Tenant\MainBanner1;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationItem;
@@ -32,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
                         ->activeIcon('heroicon-s-home')
                         ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))
                         ->url(route('filament.pages.dashboard')),
-                    // ...UserResource::getNavigationItems()
+                    ...MainBanner1Resource::getNavigationItems()
 
                 ]);
             } else {
