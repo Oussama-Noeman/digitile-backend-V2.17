@@ -19,7 +19,7 @@ class ListZoneZones extends ListRecords
             Action::make('show zones')
             ->translateLabel()
        
-            ->url(fn (): string => route('filament.resources.zone-zones.all'))
+            ->url(fn (): string => route('filament.resources.tenant/zone-zones.all'))
            
         ];
     }

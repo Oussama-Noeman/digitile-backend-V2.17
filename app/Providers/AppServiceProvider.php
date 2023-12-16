@@ -22,9 +22,11 @@ use App\Filament\Resources\HrApplicationResource;
 use App\Filament\Resources\HrJobResource;
 use App\Filament\Resources\MailingContactResource;
 use App\Filament\Resources\MainBanner1Resource;
+use App\Filament\Resources\ResCompanyResource;
 use App\Filament\Resources\SubscriberResource;
-
+use App\Filament\Resources\ZoneZoneResource;
 use App\Models\Tenant\MainBanner1;
+use App\Models\Tenant\ResCompany;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
 use Filament\Navigation\NavigationItem;
@@ -44,9 +46,10 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      */
     public function boot(): void
-    {
+    {    
         Filament::navigation(function (NavigationBuilder $builder): NavigationBuilder {
             if (tenancy()->initialized) {
+             
                 return $builder->items([
                     NavigationItem::make('Dashboard')
                         ->icon('heroicon-o-home')
@@ -73,8 +76,10 @@ class AppServiceProvider extends ServiceProvider
                     ...HrApplicationResource::getNavigationItems(),
                     ...HrJobResource::getNavigationItems(),
                     ...MailingContactResource::getNavigationItems(),
-
+                    ...ZoneZoneResource::getNavigationItems(),
+                    ...ResCompanyResource::getNavigationItems(),
                 ]);
+
             } else {
                 return $builder->items([
                     NavigationItem::make('Dashboard')
@@ -90,4 +95,5 @@ class AppServiceProvider extends ServiceProvider
             }
         });
     }
+    
 }
