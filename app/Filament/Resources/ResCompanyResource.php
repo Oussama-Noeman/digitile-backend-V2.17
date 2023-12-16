@@ -5,7 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\ResCompanyResource\Pages;
 use App\Filament\Resources\ResCompanyResource\RelationManagers;
 use App\Models\ResCompany;
-use App\Models\ResCurrency;
+use App\Models\Tenant\ResCurrency;
 use App\Models\ResPartner;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;

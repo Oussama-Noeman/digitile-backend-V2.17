@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ProductWishlistResource\Pages;
 use App\Filament\Resources\ProductWishlistResource\RelationManagers;
-use App\Models\ProductWishlist;
+use App\Models\Tenant\ProductWishlist;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;

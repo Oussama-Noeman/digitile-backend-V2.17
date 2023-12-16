@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ResGroupResource\Pages;
 use App\Filament\Resources\ResGroupResource\RelationManagers;
-use App\Models\ResGroup;
+use App\Models\Tenant\ResGroup;
 use Filament\Forms;
 use Filament\Forms\Components\KeyValue;
 use Filament\Forms\Components\TextInput;

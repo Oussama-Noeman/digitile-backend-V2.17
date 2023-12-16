@@ -4,13 +4,13 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\SaleOrderResource\Pages;
 use App\Filament\Resources\SaleOrderResource\RelationManagers;
-use App\Models\ProductProduct;
+use App\Models\Tenant\ProductProduct;
 use App\Models\ResCompany;
 use App\Models\ResCurrency;
 use App\Models\ResPartner;
-use App\Models\SaleOrder;
+use App\Models\Tenant\SaleOrder;
 use App\Models\User;
-use App\Models\ZoneZone;
+use App\Models\Tenant\ZoneZone;
 use App\Utils\Constraints;
 use App\Utils\CustomHelper;
 use App\Utils\Tax;

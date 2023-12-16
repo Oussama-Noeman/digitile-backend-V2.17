@@ -4,7 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\WebsiteFaqResource\Pages;
 use App\Filament\Resources\WebsiteFaqResource\RelationManagers;
-use App\Models\WebsiteFaq;
+use App\Models\Tenant\WebsiteFaq;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
