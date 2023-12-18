@@ -9,7 +9,7 @@ use App\Models\Tenant\ResPartner;
 use App\Models\ResCompany;
 use App\Models\ResCurrency;
 use App\Models\Tenant\SaleOrder;
-use App\Models\User;
+use App\Models\Tenant\User;
 use App\Models\Tenant\ZoneZone;
 use App\Utils\Constraints;
 use App\Utils\CustomHelper;

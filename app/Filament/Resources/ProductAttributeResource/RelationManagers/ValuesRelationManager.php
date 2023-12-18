@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ValuesRelationManager extends RelationManager
 {
     protected static string $relationship = 'values';
@@ -24,9 +25,7 @@ class ValuesRelationManager extends RelationManager
                         TextInput::make('en')->required(),
                         TextInput::make('ar')->required(),
 
-                    ])->addable(false)
-                    ->deletable(false)
-                    ->editableKeys(false)
+                    ])
                     ->required(),
             ]);
     }
@@ -48,13 +47,13 @@ class ValuesRelationManager extends RelationManager
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ]);
-            // ->bulkActions([
-            //     Tables\Actions\BulkActionGroup::make([
-            //         Tables\Actions\DeleteBulkAction::make(),
-            //     ]),
-            // ])
-            // ->emptyStateActions([
-            //     Tables\Actions\CreateAction::make(),
-            // ]);
+        // ->bulkActions([
+        //     Tables\Actions\BulkActionGroup::make([
+        //         Tables\Actions\DeleteBulkAction::make(),
+        //     ]),
+        // ])
+        // ->emptyStateActions([
+        //     Tables\Actions\CreateAction::make(),
+        // ]);
     }
 }

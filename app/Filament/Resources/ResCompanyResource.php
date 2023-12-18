@@ -59,15 +59,16 @@ class ResCompanyResource extends Resource
                     ->tabs([
                         Tabs\Tab::make('General Information')
                             ->schema([
-                                Select::make('partner_id')->relationship('resPartner', 'name')
+                                Select::make('partner_id')->relationship('resPartner', 'id')
                                     ->label('Contact')
-                                    ->options(function () {
-                                        $partners =  ResPartner::all()->pluck('name', 'id');
-                                        if (!isEmpty($partners)) {
-                                            return $partners;
-                                        }
-                                        return;
-                                    })
+                                    // ->options(function () {
+                                    //     $partners =  ResPartner::all()->pluck('name', 'id');
+                                    //     if (!isEmpty($partners)) {
+                                    //         return $partners;
+                                    //     }
+                                    //     return;
+                                    // })
+                                    ->options(ResPartner::all()->pluck('name', 'id'))
                                     ->translateLabel()->required(),
                                 TextInput::make('email')->translateLabel()->nullable(),
                                 TextInput::make('phone')->translateLabel()->nullable(),

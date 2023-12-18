@@ -18,11 +18,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class WebsiteFaqResource extends Resource
 {
     protected static ?string $model = WebsiteFaq::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    // protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
     public static function getNavigationGroup(): ?string
     {
         return __('Help & Support Section');
@@ -32,12 +33,12 @@ class WebsiteFaqResource extends Resource
     {
         return $form
             ->schema([
-               Textarea::make('name')->translateLabel(),
-               Textarea::make('answer')->translateLabel(),
-               Select::make('company_id')
-               ->relationship("company", "name"),
-               FileUpload::make('banner')
-                     ->translateLabel()
+                Textarea::make('name')->translateLabel(),
+                Textarea::make('answer')->translateLabel(),
+                Select::make('company_id')
+                    ->relationship("company", "name"),
+                FileUpload::make('banner')
+                    ->translateLabel()
                     ->disk('public')->directory('images/banner')
                     ->image()
                     ->imageEditor()
@@ -56,7 +57,7 @@ class WebsiteFaqResource extends Resource
                 ImageColumn::make('banner')->translateLabel(),
                 TextColumn::make('name')->translateLabel(),
                 TextColumn::make('answer')->translateLabel(),
-                
+
             ])
             ->filters([
                 //
@@ -67,17 +68,16 @@ class WebsiteFaqResource extends Resource
             ->bulkActions([
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
-                ])
-            ;
+            ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -85,14 +85,14 @@ class WebsiteFaqResource extends Resource
             'create' => Pages\CreateWebsiteFaq::route('/create'),
             'edit' => Pages\EditWebsiteFaq::route('/{record}/edit'),
         ];
-    }    
-    
+    }
+
     public static function getlModelLabel(): string
     {
         return __('Website Faq');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Website Faq');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Website Faq');
+    }
 }

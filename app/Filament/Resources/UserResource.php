@@ -6,7 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\Tenant\ResCompany;
 use App\Models\ResPartner;
-use App\Models\User;
+use App\Models\Tenant\User;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
@@ -40,13 +41,7 @@ class UserResource extends Resource
                 FileUpload::make('image')
                     ->disk('public')->directory('images/User')
                     ->image()
-                    ->imageEditor()
-                    ->imageEditorAspectRatios([
-                        '16:9',
-                        '4:3',
-                        '1:1',
-                    ])->translateLabel()
-                  ,
+                    ->translateLabel(),
                 TextInput::make('email')->translateLabel(),
 
                 TextInput::make('password')
@@ -62,20 +57,19 @@ class UserResource extends Resource
                     ->required()
                     ->translateLabel(),
                 Select::make('partner_id')
-                ->translateLabel()
-                 ->relationship('partner', 'name'),
-                     
+                    ->translateLabel()
+                    ->relationship('partner', 'name'),
+
                 Select::make('company_id')
                     ->options(ResCompany::all()->pluck('name', 'id'))
                     ->relationship('defaultCompany', 'name')
                     ->reactive()
-                    ->afterStateUpdated(function ($state, callable $get, callable $set){
-                        $set('AllowedCompanies',[$state]);
-
-                      })
-                      ->translateLabel()
+                    ->afterStateUpdated(function ($state, callable $get, callable $set) {
+                        $set('AllowedCompanies', [$state]);
+                    })
+                    ->translateLabel()
                     ->nullable(),
-                    Select::make('AllowedCompanies')
+                Select::make('AllowedCompanies')
                     ->options(ResCompany::all()->pluck('name', 'id'))
                     ->relationship('AllowedCompanies', 'name')
                     ->multiple()
@@ -104,17 +98,12 @@ class UserResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make(),
             ])
-            ->bulkActions([
-             
-            ])
-           ;
+            ->bulkActions([]);
     }
 
     public static function getRelations(): array
     {
-        return [
-
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -125,13 +114,13 @@ class UserResource extends Resource
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
     }
-    
+
     public static function getlModelLabel(): string
     {
         return __('user');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Users');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Users');
+    }
 }

@@ -24,12 +24,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductTemplateAttributeValueResource extends Resource
 {
 
     public static function shouldRegisterNavigation(): bool
     {
-        return false;
+        return true;
     }
     protected static ?string $model = ProductTemplateAttributeValue::class;
 
@@ -84,8 +85,7 @@ class ProductTemplateAttributeValueResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-         ;
+            ]);
     }
 
     public static function getRelations(): array
@@ -103,13 +103,13 @@ class ProductTemplateAttributeValueResource extends Resource
             'edit' => Pages\EditProductTemplateAttributeValue::route('/{record}/edit'),
         ];
     }
- 
+
     public static function getlModelLabel(): string
     {
         return __('Template Attribute Values');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Template Attribute Values');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Template Attribute Values');
+    }
 }
