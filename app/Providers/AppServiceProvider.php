@@ -43,6 +43,7 @@ use App\Filament\Resources\ResLangResource;
 use App\Filament\Resources\ResPartnerResource;
 use App\Filament\Resources\SaleOrderResource;
 use App\Filament\Resources\SubscriberResource;
+use App\Filament\Resources\WebsiteFaqResource;
 use App\Filament\Resources\ZoneZoneResource;
 use App\Models\Tenant\MainBanner1;
 use App\Models\Tenant\MainBanner3;
@@ -114,7 +115,8 @@ class AppServiceProvider extends ServiceProvider
                     ...ResGroupResource::getNavigationItems(),
                     ...ResLangResource::getNavigationItems(),
                     ...ResPartnerResource::getNavigationItems(),
-                    ...SaleOrderResource::getNavigationItems(),
+                    // ...SaleOrderResource::getNavigationItems(),
+                    ...WebsiteFaqResource::getNavigationItems(),
                     ...ZoneZoneResource::getNavigationItems(),
                     ...ResCompanyResource::getNavigationItems(),
                 ]);
