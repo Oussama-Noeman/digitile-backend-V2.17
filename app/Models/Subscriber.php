@@ -33,7 +33,9 @@ class Subscriber extends Model
         0 => 'Not Active',
         1 => 'Active',
     ];
-
+    protected $casts = [
+        'password' => 'hashed',
+    ];
     //    public function subscriberbranchs()
     //    {
     //        return $this->hasMany(SubscriberBranch::class);

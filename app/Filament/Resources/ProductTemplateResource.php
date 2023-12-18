@@ -224,7 +224,7 @@ class ProductTemplateResource extends Resource
                                 Select::make('company_id')
                                     ->translateLabel()
                                     ->relationship('company', 'name')
-                                    ->nullable(),
+                                    ->required(),
 
                                 TextInput::make('list_price')
 
