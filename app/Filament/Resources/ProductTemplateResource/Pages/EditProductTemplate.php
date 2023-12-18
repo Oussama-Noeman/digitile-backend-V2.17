@@ -3,13 +3,13 @@
 namespace App\Filament\Resources\ProductTemplateResource\Pages;
 
 use App\Filament\Resources\ProductTemplateResource;
-use App\Models\ProductAttributeProductTemplateRels;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductAttributeValueProductTemplateAttributeLineRels;
-use App\Models\ProductProduct;
-use App\Models\ProductTemplate;
-use App\Models\ProductTemplateAttributeLine;
-use App\Models\ProductTemplateAttributeValue;
+use App\Models\Tenant\ProductAttributeProductTemplateRels;
+use App\Models\Tenant\ProductAttributeValue;
+use App\Models\Tenant\ProductAttributeValueProductTemplateAttributeLineRels;
+use App\Models\Tenant\ProductProduct;
+use App\Models\Tenant\ProductTemplate;
+use App\Models\Tenant\ProductTemplateAttributeLine;
+use App\Models\Tenant\ProductTemplateAttributeValue;
 use Filament\Actions;
 use Filament\Forms\Components\Select;
 use Filament\Notifications\Notification;
@@ -31,12 +31,12 @@ class EditProductTemplate extends EditRecord
     {
         return $this->getResource()::getUrl('index');
     }
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\DeleteAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\DeleteAction::make(),
+    //     ];
+    // }
 
     protected function beforeSave(): void
     {
@@ -183,10 +183,12 @@ class EditProductTemplate extends EditRecord
         $template_name = $this->data['name'];
         $template = $this->record;
         $attributes = $this->data['oldAttributes'];
+        // dd($template->name['ar']);
         $first_product = ProductProduct::where('product_tmpl_id', $template->id)->where('active', '1')->first();
         if ($first_product->name == $template->name['en'] && empty($attributes)) {
             $first_product->lst_price = $template->list_price;
             $first_product->save();
+            // dd($template->name['en']);
         } else {
 
             //START ATTRIBUTES-VALUES OF OLD-NEW REPEATER COMPARISON
@@ -251,6 +253,7 @@ class EditProductTemplate extends EditRecord
                     $old_product->active = 0;
                     $old_product->save();
                 }
+                // dd($template->name['en']);
                 if (!empty($attributes)) {
                     foreach ($attributes as $attribute) {
                         $line = ProductTemplateAttributeLine::create([
@@ -301,6 +304,7 @@ class EditProductTemplate extends EditRecord
                         $name_ar = substr($name_ar, 0, -1);
                         $lines = substr($lines, 0, -1);
                         $related_att = substr($related_att, 0, -1);
+                        // dd($template->name['en']);
                         $product = ProductProduct::create([
                             'product_tmpl_id' => $template->id,
                             'categ_id' => $template->categ_id,
@@ -345,6 +349,7 @@ class EditProductTemplate extends EditRecord
                         }
                     }
                 } else {
+                    // dd($template->name['en']);
                     ProductProduct::create([
                         'product_tmpl_id' => $template->id,
                         'categ_id' => $template->categ_id,

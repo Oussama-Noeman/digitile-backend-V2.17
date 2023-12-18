@@ -667,7 +667,7 @@ class ProductTemplateResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\Action::make('configure')
                     ->label('Configure')
-                    ->url(fn (ProductTemplate $record): string => route('filament.admin.resources.product-template-attribute-values.index', ['record' => $record])),
+                    ->url(fn (ProductTemplate $record): string => route('filament.resources.tenant/product-template-attribute-values.index', ['record' => $record])),
             ]);
     }
 

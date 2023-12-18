@@ -45,7 +45,6 @@ class AboutUsSliderResource extends Resource
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('company.name')
-                    ->numeric()
                     ->sortable(),
                 //                Tables\Columns\ImageColumn::make('about_us_slider_image_attachment'),
                 Tables\Columns\TextColumn::make('created_at')

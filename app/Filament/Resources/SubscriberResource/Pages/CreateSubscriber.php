@@ -55,7 +55,7 @@ class CreateSubscriber extends CreateRecord
                     'email' => $subscriber->email,
                     'password' => Hash::make($subscriber->password),
                     'email_verified_at' => now(),
-                    'login' => $subscriber->phone
+                    'login' => $subscriber->email
                 ]
             );
         });

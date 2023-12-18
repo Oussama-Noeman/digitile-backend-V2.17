@@ -3,6 +3,12 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Tenant\ProductWishlist;
+use App\Models\Tenant\ResCompany;
+use App\Models\Tenant\ResGroup;
+use App\Models\Tenant\ResPartner;
+use App\Models\Tenant\SaleOrder;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasTenants;
 use Filament\Panel;
@@ -30,16 +36,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'company_id',
-        'partner_id',
-        'active',
-        'signature',
-        'share',
-        'notification_type',
-        'livechat_username',
-        'image',
-        'login',
-        'fcm_token'
+
     ];
 
     /**
@@ -62,41 +59,4 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-    public function wishlist()
-    {
-        return $this->hasMany(ProductWishlist::class, 'user_id');
-    }
-
-    public function partner()
-    {
-        return $this->belongsTo(ResPartner::class, 'partner_id');
-    }
-
-    public function AllowedCompanies()
-    {
-        return $this->belongsToMany(ResCompany::class, 'res_company_users_rels', 'uid', 'cid');
-    }
-    public function saleOrders()
-    {
-        return $this->hasMany(SaleOrder::class);
-    }
-    public function resGroups()
-    {
-        return $this->belongsToMany(ResGroup::class, 'res_groups_users_rel', 'uid', 'gid');
-    }
-    public function defaultCompany()
-    {
-        return $this->belongsTo(ResCompany::class, 'company_id');
-    }
-
-    //Tenancy methods
-    // public function getTenants(Panel $panel): Collection
-    // {
-    //     // dd($this->AllowedCompanies);
-    //     return $this->AllowedCompanies;
-    // }
-    // public function canAccessTenant(Model $tenant): bool
-    // {
-    //     return $this->AllowedCompanies->contains($tenant);
-    // }
 }

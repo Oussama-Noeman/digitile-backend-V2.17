@@ -9,7 +9,7 @@ use App\Models\Tenant\DigitileKitchen;
 use App\Models\ProductTemplate;
 use App\Models\Tenant\ResCompany;
 use App\Models\Tenant\ResPartner;
-use App\Models\User;
+use App\Models\Tenant\User;
 use Filament\Forms;
 use Filament\Forms\Components\Actions;
 use Filament\Forms\Components\Actions\Action;

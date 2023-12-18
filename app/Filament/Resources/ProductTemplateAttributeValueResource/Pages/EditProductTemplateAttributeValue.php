@@ -27,7 +27,7 @@ class EditProductTemplateAttributeValue extends EditRecord
     protected function getRedirectUrl(): string
     {
         $record = $this->record;
-        return url("/admin/product-template-attribute-values?record={$record->product_tmpl_id}");
+        return url("/admin/tenant/product-template-attribute-values?record={$record->product_tmpl_id}");
     }
 
     protected function afterSave(): void

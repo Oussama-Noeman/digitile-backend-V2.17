@@ -4,12 +4,12 @@ namespace App\Filament\Resources\ProductTemplateResource\Pages;
 
 use App\Filament\Resources\ProductTemplateResource;
 use App\Models\ProductAttribute;
-use App\Models\ProductAttributeProductTemplateRels;
-use App\Models\ProductAttributeValue;
-use App\Models\ProductAttributeValueProductTemplateAttributeLineRels;
-use App\Models\ProductProduct;
-use App\Models\ProductTemplateAttributeLine;
-use App\Models\ProductTemplateAttributeValue;
+use App\Models\Tenant\ProductAttributeProductTemplateRels;
+use App\Models\Tenant\ProductAttributeValue;
+use App\Models\Tenant\ProductAttributeValueProductTemplateAttributeLineRels;
+use App\Models\Tenant\ProductProduct;
+use App\Models\Tenant\ProductTemplateAttributeLine;
+use App\Models\Tenant\ProductTemplateAttributeValue;
 use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\DB;

@@ -7,6 +7,7 @@ use App\Filament\Resources\AboutUsResource;
 use App\Filament\Resources\AboutUsSliderResource;
 use App\Filament\Resources\AboutUsValueResource;
 use App\Filament\Resources\AboutUsVisionResource;
+use App\Filament\Resources\AdminUserResource;
 use App\Filament\Resources\CalendarResource;
 use App\Filament\Resources\CareerInformationResource;
 use App\Filament\Resources\ContactUsResource;
@@ -43,6 +44,7 @@ use App\Filament\Resources\ResLangResource;
 use App\Filament\Resources\ResPartnerResource;
 use App\Filament\Resources\SaleOrderResource;
 use App\Filament\Resources\SubscriberResource;
+use App\Filament\Resources\UserResource;
 use App\Filament\Resources\WebsiteFaqResource;
 use App\Filament\Resources\ZoneZoneResource;
 use App\Models\Tenant\MainBanner1;
@@ -115,10 +117,11 @@ class AppServiceProvider extends ServiceProvider
                     ...ResGroupResource::getNavigationItems(),
                     ...ResLangResource::getNavigationItems(),
                     ...ResPartnerResource::getNavigationItems(),
-                    // ...SaleOrderResource::getNavigationItems(),
+                    ...SaleOrderResource::getNavigationItems(),
                     ...WebsiteFaqResource::getNavigationItems(),
                     ...ZoneZoneResource::getNavigationItems(),
                     ...ResCompanyResource::getNavigationItems(),
+                    ...UserResource::getNavigationItems(),
                 ]);
             } else {
                 return $builder->items([
@@ -130,7 +133,7 @@ class AppServiceProvider extends ServiceProvider
                         ->url(route('filament.pages.dashboard')),
                     ...SubscriberResource::getNavigationItems(),
 
-                    // ...UserResource::getNavigationItems()
+                    ...AdminUserResource::getNavigationItems()
                 ]);
             }
         });
