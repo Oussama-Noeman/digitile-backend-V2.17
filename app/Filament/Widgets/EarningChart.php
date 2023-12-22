@@ -5,6 +5,7 @@ namespace App\Filament\Widgets;
 use App\Models\Tenant\SaleOrder;
 use Carbon\Carbon;
 use Filament\Forms\Components\DateTimePicker;
+use Illuminate\Support\Facades\Schema;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class EarningChart extends ApexChartWidget
@@ -30,11 +31,15 @@ class EarningChart extends ApexChartWidget
      *
      * @return array
      */
+
+    public static function canView(): bool
+    {
+        return tenancy()->initialized;
+    }
     protected function getOptions(): array
     {
         $startDate = Carbon::now()->startOfYear();
         $endDate = Carbon::now()->endOfYear();
-
         $orders = SaleOrder::where('created_at', '<=', $endDate)
             ->where('created_at', '>=', $startDate)
             ->where('order_status', 3)

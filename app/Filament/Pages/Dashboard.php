@@ -2,19 +2,18 @@
 
 namespace App\Filament\Pages;
 
-
-
+use App\Filament\Widgets\EarningChart;
 use App\Filament\Widgets\EarningStats;
+use App\Filament\Widgets\ProductChart;
+use App\Filament\Widgets\SaleOrderReport;
 use Filament\Pages\Dashboard as BasePage;
 use Illuminate\Support\Facades\DB;
 
 class Dashboard extends BasePage
 {
-
-    protected function getFooterWidgets(): array
+    protected function getHeaderWidgets(): array
     {
 
-        //            $tables = DB::select('SHOW TABLES');
         $base = '';
         if (str_contains(DB::getDatabaseName(), 'tenant')) {
             $base = 'tenant';
@@ -24,10 +23,10 @@ class Dashboard extends BasePage
 
         if ($base == 'tenant') {
             return [
-                //                StatsOverview::class,
-                // Branch_VistorsChart::class,
-                // VistorsPieWeeklyChart::class,
-
+                // EarningChart::class,
+                // EarningStats::class,
+                // ProductChart::class,
+                // SaleOrderReport::class,
             ];
         } else {
             return [];
