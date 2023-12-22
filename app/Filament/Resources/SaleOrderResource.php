@@ -70,7 +70,7 @@ class SaleOrderResource extends Resource
 
                     Select::make('partner_id')
                         ->relationship('partner', 'name')
-                        ->options(\App\Models\Tenant\ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
+                        ->options(ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
                         ->label('Customer')
                         ->searchable()
                         ->preload()
