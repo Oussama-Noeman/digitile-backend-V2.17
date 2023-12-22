@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\SaleOrderResource\Pages;
 
 use App\Filament\Resources\SaleOrderResource;
-use App\Models\SaleOrder;
+use App\Models\Tenant\SaleOrder;
 use Filament\Actions;
 use Filament\Pages\Actions\DeleteAction;
 use Filament\Resources\Pages\EditRecord;

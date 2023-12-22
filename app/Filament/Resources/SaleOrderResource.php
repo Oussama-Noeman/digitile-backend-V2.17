@@ -70,7 +70,7 @@ class SaleOrderResource extends Resource
 
                     Select::make('partner_id')
                         ->relationship('partner', 'name')
-                        ->options(\App\Models\Tenant\ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
+                        ->options(ResPartner::where('is_client', true)->get()->pluck('name', 'id'))
                         ->label('Customer')
                         ->searchable()
                         ->preload()
@@ -87,9 +87,10 @@ class SaleOrderResource extends Resource
                             if ($client_id) {
                                 $partner = Respartner::find($client_id);
                                 $default_address = [$partner->id => 'default address'];
+                              
                                 $adresses = Respartner::where('parent_id', $client_id)->get()->pluck('name', 'id')->toArray();
 
-                                $adresses = array_merge($default_address, $adresses);
+                                $adresses = $default_address+$adresses;
                             }
                             return $adresses;
                         })
@@ -330,16 +331,13 @@ class SaleOrderResource extends Resource
                                     }
                                     return $tax;
                                 }),
-                            TextInput::make('price_total')->numeric()->Label('Total')->translateLabel()->readOnly(),
+                            TextInput::make('price_total')->numeric()->Label('Total')->translateLabel()->extraInputAttributes(['readonly' => true]),
                             Section::make('')
                                 ->schema([
                                     Repeater::make('saleOrderLineImage')
                                         ->relationship('saleOrderLineImage')
                                         ->schema([
                                             FileUpload::make('image')
-                                                ->openable()
-                                                ->downloadable()
-                                                ->imageEditor()
                                                 ->image()
                                                 ->disk('public')->directory('images/orderlines')
                                                 ->translateLabel()
@@ -349,15 +347,15 @@ class SaleOrderResource extends Resource
                                         return $record->saleOrderLineImage->isEmpty();
                                     } else return true;
                                 }),
-                        ])->reorderable(true)
+                        ])
                         ->columns(9)
 
                 ]),
                 Section::make('Total Amount')->schema([
 
-                    TextInput::make('amount_untaxed')->label('Untaxed Amount')->readOnly(),
-                    TextInput::make('amount_tax')->label('Taxes')->readOnly(),
-                    TextInput::make('amount_total')->label('Total')->readOnly()->columnSpan(2),
+                    TextInput::make('amount_untaxed')->label('Untaxed Amount')->extraInputAttributes(['readonly' => true]),
+                    TextInput::make('amount_tax')->label('Taxes')->extraInputAttributes(['readonly' => true]),
+                    TextInput::make('amount_total')->label('Total')->extraInputAttributes(['readonly' => true])->columnSpan(2),
                 ])
                     ->visibleOn('edit')
                     ->columns(2),

@@ -141,7 +141,13 @@ class AppServiceProvider extends ServiceProvider
                             ...HrApplicationResource::getNavigationItems(),
                             ...HrJobResource::getNavigationItems(),
                         ]),
-
+                //'Order Management',
+                NavigationGroup::make('Order Management')
+                ->icon('')
+                ->items([
+                    ...SaleOrderResource::getNavigationItems(),
+                   
+                ]),
                 ]);
             } else {
                 return $builder->items([
