@@ -17,7 +17,7 @@ class MailingContactResource extends Resource
 {
     protected static ?string $model = MailingContact::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationIcon = 'heroicon-o-mail';
     public static function getNavigationGroup(): ?string
     {
         return __('Help & Support Section');

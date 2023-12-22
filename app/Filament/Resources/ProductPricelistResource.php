@@ -27,7 +27,7 @@ class ProductPricelistResource extends Resource
 {
     protected static ?string $model = ProductPricelist::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-banknotes';
+    protected static ?string $navigationIcon = 'heroicon-o-cash';
     public static function getNavigationGroup(): ?string
     {
         return __('Promotion Management');

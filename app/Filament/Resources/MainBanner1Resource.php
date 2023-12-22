@@ -25,7 +25,7 @@ class MainBanner1Resource extends Resource
 {
     protected static ?string $model = MainBanner1::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-window';
+    protected static ?string $navigationIcon = 'heroicon-o-credit-card';
     public static function getNavigationGroup(): ?string
     {
         return __('Website Settings');

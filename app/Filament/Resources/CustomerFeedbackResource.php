@@ -17,7 +17,7 @@ class CustomerFeedbackResource extends Resource
 {
     protected static ?string $model = CustomerFeedback::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-bottom-center-text';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-alt';
     public static function getNavigationGroup(): ?string
     {
         return __('Website Settings');

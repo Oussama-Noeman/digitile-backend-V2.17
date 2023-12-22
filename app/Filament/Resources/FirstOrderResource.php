@@ -22,7 +22,7 @@ class FirstOrderResource extends Resource
 
     protected static ?string $model = FirstOrder::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-archive-box-arrow-down';
+    protected static ?string $navigationIcon = 'heroicon-o-inbox-in';
     public static function getNavigationGroup(): ?string
     {
         return __('Promotion Management');

@@ -34,6 +34,7 @@ use App\Http\Controllers\Api\V1\Platform\CategoryController;
 use App\Http\Controllers\Api\V1\Platform\ClientController;
 use App\Http\Controllers\Api\V1\Platform\ContactUsController;
 use App\Http\Controllers\Api\V1\Platform\OrderController;
+use App\Http\Controllers\Api\V1\Platform\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -170,5 +171,6 @@ Route::middleware([
             Route::post('kitchen/completed-orders', [KitchenController::class, 'getKitchenHistoryOrders']);
             Route::post('kitchen/update-order-detail-status', [KitchenController::class, 'updateOrderStatus']);
         });
+        //subscriber 
     });
 });

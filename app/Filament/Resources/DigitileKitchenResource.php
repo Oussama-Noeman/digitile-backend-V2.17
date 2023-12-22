@@ -25,7 +25,7 @@ class DigitileKitchenResource extends Resource
         return __('Product Management');
     }
 
-    // protected static ?string $navigationIcon = 'heroicon-o-building-storefront';
+    protected static ?string $navigationIcon = 'heroicon-o-library';
 
     public static function form(Form $form): Form
     {

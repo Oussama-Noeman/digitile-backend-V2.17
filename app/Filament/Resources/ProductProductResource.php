@@ -33,7 +33,7 @@ class ProductProductResource extends Resource
 {
     protected static ?string $model = ProductProduct::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
     public static function getNavigationGroup(): ?string
     {
         return __('Product Management');

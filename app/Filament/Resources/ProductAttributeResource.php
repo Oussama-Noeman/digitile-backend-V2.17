@@ -22,7 +22,7 @@ class ProductAttributeResource extends Resource
 {
     protected static ?string $model = ProductAttribute::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-clipboard-document';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
     public static function getNavigationGroup(): ?string
     {
         return __('Product Management');

@@ -44,14 +44,17 @@ use App\Filament\Resources\ResLangResource;
 use App\Filament\Resources\ResPartnerResource;
 use App\Filament\Resources\SaleOrderResource;
 use App\Filament\Resources\SubscriberResource;
+use App\Filament\Resources\TeamResource;
 use App\Filament\Resources\UserResource;
 use App\Filament\Resources\WebsiteFaqResource;
 use App\Filament\Resources\ZoneZoneResource;
+use App\Http\Resources\AboutusResource as ResourcesAboutusResource;
 use App\Models\Tenant\MainBanner1;
 use App\Models\Tenant\MainBanner3;
 use App\Models\Tenant\ResCompany;
 use Filament\Facades\Filament;
 use Filament\Navigation\NavigationBuilder;
+use Filament\Navigation\NavigationGroup;
 use Filament\Navigation\NavigationItem;
 use Illuminate\Support\ServiceProvider;
 
@@ -72,56 +75,73 @@ class AppServiceProvider extends ServiceProvider
     {
         Filament::navigation(function (NavigationBuilder $builder): NavigationBuilder {
             if (tenancy()->initialized) {
-
                 return $builder->items([
-                    NavigationItem::make('Dashboard')
-                        ->icon('heroicon-o-home')
-                        ->activeIcon('heroicon-s-home')
-                        ->isActiveWhen(fn (): bool => request()->routeIs('filament.pages.dashboard'))
-                        ->url(route('filament.pages.dashboard')),
-                    ...AboutUsMissionResource::getNavigationItems(),
-                    ...AboutUsResource::getNavigationItems(),
-                    ...AboutUsSliderResource::getNavigationItems(),
-                    ...AboutUsValueResource::getNavigationItems(),
-                    ...AboutUsVisionResource::getNavigationItems(),
-                    ...CalendarResource::getNavigationItems(),
-                    ...CareerInformationResource::getNavigationItems(),
-                    ...ContactUsResource::getNavigationItems(),
-                    ...CouponResource::getNavigationItems(),
-                    ...CustomerFeedbackResource::getNavigationItems(),
-                    ...DigitileKitchenResource::getNavigationItems(),
-                    ...DigitileOrderKitchenLineResource::getNavigationItems(),
-                    ...DigitileOrderKitchenResource::getNavigationItems(),
-                    ...DriverChatResource::getNavigationItems(),
-                    ...FirstOrderResource::getNavigationItems(),
-                    ...FreeDeliveryResource::getNavigationItems(),
-                    ...HrApplicationResource::getNavigationItems(),
-                    ...HrJobResource::getNavigationItems(),
-                    ...MailingContactResource::getNavigationItems(),
-                    ...MainBanner1Resource::getNavigationItems(),
-                    ...MainBanner2Resource::getNavigationItems(),
-                    ...MainBanner3Resource::getNavigationItems(),
-                    ...MainPageSectionResource::getNavigationItems(),
-                    ...MemberResource::getNavigationItems(),
-                    ...OrderTripResource::getNavigationItems(),
-                    ...ProductAttributeResource::getNavigationItems(),
-                    ...ProductAttributeValueResource::getNavigationItems(),
-                    ...ProductCategoryResource::getNavigationItems(),
-                    ...ProductPricelistItemResource::getNavigationItems(),
-                    ...ProductPricelistResource::getNavigationItems(),
-                    ...ProductProductResource::getNavigationItems(),
-                    ...ProductTagResource::getNavigationItems(),
-                    ...ProductTemplateResource::getNavigationItems(),
-                    ...ProductWishlistResource::getNavigationItems(),
-                    ...ResCurrencyResource::getNavigationItems(),
-                    ...ResGroupResource::getNavigationItems(),
-                    ...ResLangResource::getNavigationItems(),
-                    ...ResPartnerResource::getNavigationItems(),
-                    ...SaleOrderResource::getNavigationItems(),
-                    ...WebsiteFaqResource::getNavigationItems(),
-                    ...ZoneZoneResource::getNavigationItems(),
-                    ...ResCompanyResource::getNavigationItems(),
-                    ...UserResource::getNavigationItems(),
+                    NavigationGroup::make('Order Management')
+                        ->icon('')
+                        ->items([
+                            ...SaleOrderResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Product Management')
+                        ->icon('')
+                        ->items([
+                            ...DigitileKitchenResource::getNavigationItems(),
+                            ...ProductAttributeResource::getNavigationItems(),
+                            ...ProductCategoryResource::getNavigationItems(),
+                            ...ProductProductResource::getNavigationItems(),
+                            ...ProductTemplateResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Promotion Management')
+                        ->icon('')
+                        ->items([
+                            ...CouponResource::getNavigationItems(),
+                            ...FirstOrderResource::getNavigationItems(),
+                            ...FreeDeliveryResource::getNavigationItems(),
+                            ...ProductPricelistResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Website Settings ')
+                        ->icon('')
+                        ->items([
+                            ...AboutUsMissionResource::getNavigationItems(),
+                            ...AboutUsResource::getNavigationItems(),
+                            ...AboutUsSliderResource::getNavigationItems(),
+                            ...AboutUsValueResource::getNavigationItems(),
+                            ...AboutUsVisionResource::getNavigationItems(),
+                            ...CustomerFeedbackResource::getNavigationItems(),
+                            ...MainBanner1Resource::getNavigationItems(),
+                            ...MainBanner2Resource::getNavigationItems(),
+                            ...MainBanner3Resource::getNavigationItems(),
+                            ...MainPageSectionResource::getNavigationItems(),
+                            ...TeamResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Help & Support Section')
+                        ->icon('')
+                        ->items([
+                            ...ContactUsResource::getNavigationItems(),
+                            ...MailingContactResource::getNavigationItems(),
+                            ...WebsiteFaqResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('User Management')
+                        ->icon('')
+                        ->items([
+                            ...ResPartnerResource::getNavigationItems(),
+                            ...UserResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('System Settings')
+                        ->icon('')
+                        ->items([
+                            ...CalendarResource::getNavigationItems(),
+                            ...ResCompanyResource::getNavigationItems(),
+                            ...ResCurrencyResource::getNavigationItems(),
+                            ...ZoneZoneResource::getNavigationItems(),
+                        ]),
+                    NavigationGroup::make('Recruitment')
+                        ->icon('')
+                        ->items([
+                            ...CareerInformationResource::getNavigationItems(),
+                            ...HrApplicationResource::getNavigationItems(),
+                            ...HrJobResource::getNavigationItems(),
+                        ]),
+
                 ]);
             } else {
                 return $builder->items([
