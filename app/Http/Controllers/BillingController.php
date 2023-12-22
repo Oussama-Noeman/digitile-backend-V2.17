@@ -13,15 +13,14 @@ use LaravelDaily\Invoices\Classes\InvoiceItem;
 class BillingController extends Controller
 {
     public function getbill(SaleOrder $record)
-    {
-        // Assuming you have a customer name and email in your SaleOrder model
+    {   
         $customer = new Buyer([
             'name'          => $record->customer_name,
             'custom_fields' => [
                 'email' => $record->customer_email,
             ],
         ]);
-
+     
         $invoice = Invoice::make()->template('pos')->buyer($customer)->totalAmount($record->amount_total)->taxableAmount($record->amount_untaxed)->taxRate(10);
 
         foreach ($record->saleOrderLines as $line) {

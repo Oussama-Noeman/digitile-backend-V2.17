@@ -35,6 +35,7 @@ use App\Http\Controllers\Api\V1\Platform\ClientController;
 use App\Http\Controllers\Api\V1\Platform\ContactUsController;
 use App\Http\Controllers\Api\V1\Platform\OrderController;
 use App\Http\Controllers\Api\V1\Platform\SubscriberController;
+use App\Http\Controllers\BillingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,12 +48,21 @@ use App\Http\Controllers\Api\V1\Platform\SubscriberController;
 | Feel free to customize them however you want. Good luck!
 |
 */
+Route::middleware([
+    'web',
+    InitializeTenancyByDomain::class,
+    PreventAccessFromCentralDomains::class,
+])
+->group(function () {
+    Route::get('/{record}/bill',[BillingController::class,'getbill'])->name('get.bill');
+});
 
 Route::middleware([
     'api',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
 ])->group(function () {
+   
     Route::prefix('api')->group(function () {
         Route::post('registration', [AuthController::class, 'register']);
         Route::post('login', [AuthController::class, 'login'])->name('login');
@@ -173,4 +183,7 @@ Route::middleware([
         });
         //subscriber 
     });
+
 });
+
+

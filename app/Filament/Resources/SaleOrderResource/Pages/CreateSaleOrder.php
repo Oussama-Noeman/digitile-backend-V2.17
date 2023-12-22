@@ -6,7 +6,7 @@ use App\Filament\Resources\SaleOrderResource;
 use App\Models\DriverOrder;
 use App\Models\ProductProduct;
 use App\Models\ResPartner;
-use App\Models\SaleOrder;
+use App\Models\Tenant\SaleOrder;
 use App\Models\SaleOrderLine;
 use App\Utils\Tax;
 use Filament\Actions;
