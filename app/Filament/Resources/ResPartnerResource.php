@@ -124,7 +124,10 @@ class ResPartnerResource extends Resource
                     ->visible(function ($get) {
                         $chef = $get('role');
                         return $chef == 'is_chef';
-                    })
+                    }),
+     Section::make('')->schema([Placeholder::make('Please Create before adding your address')->translateLabel()])->visibleOn('create'),
+     Section::make('')->schema([SetMarker::make('latt_long')->label('adress')->translateLabel()])->visibleOn('edit'),
+
             ]);
         //     Actions::make([
         //         Action::make('create user')
@@ -170,8 +173,6 @@ class ResPartnerResource extends Resource
         //                 return true;
         //             }
         //         }),
-        //     Section::make('')->schema([Placeholder::make('Please Create before adding your address')->translateLabel()])->visibleOn('create'),
-        //     Section::make('')->schema([SetMarker::make('latt_long')->label('adress')->translateLabel()])->visibleOn('edit'),
 
 
         // ]);
