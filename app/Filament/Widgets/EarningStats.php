@@ -5,9 +5,14 @@ namespace App\Filament\Widgets;
 use App\Models\Tenant\SaleOrder;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Card;
+use Illuminate\Support\Facades\Schema;
 
 class EarningStats extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        return tenancy()->initialized;
+    }
     protected function getCards(): array
     {
         return [

@@ -9,6 +9,7 @@ use DateTime;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
+use Illuminate\Support\Facades\Schema;
 use Leandrocfe\FilamentApexCharts\Widgets\ApexChartWidget;
 
 class ProductChart extends ApexChartWidget
@@ -35,13 +36,16 @@ class ProductChart extends ApexChartWidget
      *
      * @return array
      */
+    public static function canView(): bool
+    {
+        return tenancy()->initialized;
+    }
     protected function getOptions(): array
     {
         // $startDate = Carbon::now()->startOfMonth();
         // $endDate = Carbon::now()->endOfMonth();
         $startDate = Carbon::parse($this->filterFormData['date_start']);
         $endDate = Carbon::parse($this->filterFormData['date_end']);
-
         $orderLines = SaleOrderLine::where('created_at', '<=', $endDate)
             ->where('created_at', '>=', $startDate)
             ->get();
@@ -106,6 +110,7 @@ class ProductChart extends ApexChartWidget
             ],
         ];
     }
+
     protected function getFormSchema(): array
     {
         return [

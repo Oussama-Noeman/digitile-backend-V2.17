@@ -11,9 +11,14 @@ use Filament\Tables\Filters\Filter;
 use Filament\Resources\Table;
 use Filament\Widgets\TableWidget as BaseWidget;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Schema;
 
 class SaleOrderReport extends BaseWidget
 {
+    public static function canView(): bool
+    {
+        return tenancy()->initialized;
+    }
     protected int | string | array $columnSpan = 'full';
 
     public function getTableQuery(): Builder
@@ -35,21 +40,25 @@ class SaleOrderReport extends BaseWidget
 
     protected function getTableFilters(): array
     {
-        return [
-            Filter::make('created_at')
-                ->form([
-                    DatePicker::make('From'),
-                    DatePicker::make('To'),
-                ])
-                ->query(function (Builder $query, array $data): Builder {
-                    return $query
-                        ->when($data['From'], function (Builder $query, $date) {
-                            return $query->whereDate('created_at', '>=', $date);
-                        })
-                        ->when($data['To'], function (Builder $query, $date) {
-                            return $query->whereDate('created_at', '<=', $date);
-                        });
-                }),
-        ];
+        if (Schema::hasTable('sale_orders')) {
+            return [
+                Filter::make('created_at')
+                    ->form([
+                        DatePicker::make('From'),
+                        DatePicker::make('To'),
+                    ])
+                    ->query(function (Builder $query, array $data): Builder {
+                        return $query
+                            ->when($data['From'], function (Builder $query, $date) {
+                                return $query->whereDate('created_at', '>=', $date);
+                            })
+                            ->when($data['To'], function (Builder $query, $date) {
+                                return $query->whereDate('created_at', '<=', $date);
+                            });
+                    }),
+            ];
+        } else {
+            return [];
+        }
     }
 }
