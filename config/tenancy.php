@@ -192,9 +192,13 @@ return [
     /**
      * Parameters used by the tenants:seed command.
      */
+
+    
     'seeder_parameters' => [
         '--class' => 'DatabaseSeeder', // root seeder class
         // '--force' => true,
     ],
-  
+   
+        'seed_after_migration' => true,
+        // ... other configuration settings
 ];
