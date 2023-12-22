@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 use Stancl\Tenancy\Database\Models\Domain;
 
 class Subscriber extends Model
@@ -33,9 +34,14 @@ class Subscriber extends Model
         0 => 'Not Active',
         1 => 'Active',
     ];
-    protected $casts = [
-        'password' => 'hashed',
-    ];
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($subscriber) {
+            $subscriber->password = Hash::make($subscriber->password);
+        });
+    }
     //    public function subscriberbranchs()
     //    {
     //        return $this->hasMany(SubscriberBranch::class);

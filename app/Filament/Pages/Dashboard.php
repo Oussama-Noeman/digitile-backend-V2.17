@@ -4,11 +4,13 @@ namespace App\Filament\Pages;
 
 
 
+use App\Filament\Widgets\EarningStats;
 use Filament\Pages\Dashboard as BasePage;
 use Illuminate\Support\Facades\DB;
 
 class Dashboard extends BasePage
 {
+
     protected function getFooterWidgets(): array
     {
 

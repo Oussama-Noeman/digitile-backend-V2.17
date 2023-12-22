@@ -23,7 +23,7 @@ class WebsiteFaqResource extends Resource
 {
     protected static ?string $model = WebsiteFaq::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-chat-bubble-left-right';
+    protected static ?string $navigationIcon = 'heroicon-o-chat-alt-2';
     public static function getNavigationGroup(): ?string
     {
         return __('Help & Support Section');

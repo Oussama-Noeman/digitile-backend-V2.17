@@ -34,7 +34,7 @@ class ResCompanyResource extends Resource
 {
     protected static ?string $model = ResCompany::class;
 
-    // protected static ?string $navigationIcon = 'heroicon-o-building-office-2';
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
 
     public static function getNavigationGroup(): ?string
     {

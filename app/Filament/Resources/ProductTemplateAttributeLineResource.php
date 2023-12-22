@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Filament\Resources\Form;
 use Filament\Resources\Table;
+
 class ProductTemplateAttributeLineResource extends Resource
 {
     public static function shouldRegisterNavigation(): bool
@@ -60,8 +61,7 @@ class ProductTemplateAttributeLineResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-            ])
-           ;
+            ]);
     }
 
     public static function getRelations(): array
@@ -83,8 +83,8 @@ class ProductTemplateAttributeLineResource extends Resource
     {
         return __('Template Attribute Line');
     }
-public static function getPluralModelLabel(): string
-{
-    return __('Template Attribute Line');
-}
+    public static function getPluralModelLabel(): string
+    {
+        return __('Template Attribute Line');
+    }
 }

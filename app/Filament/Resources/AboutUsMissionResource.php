@@ -17,6 +17,8 @@ class AboutUsMissionResource extends Resource
 {
     protected static ?string $model = AboutUsMission::class;
 
+    // protected static ?string $navigationGroup = 'Settings';
+
     protected static ?string $navigationIcon = 'heroicon-o-information-circle';
     public static function getNavigationGroup(): ?string
     {
